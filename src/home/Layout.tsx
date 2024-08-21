@@ -1,8 +1,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { SocialMedia } from "./components/SocialMedia";
+// import { SocialMedia } from "./components/SocialMedia";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Vitrine from "./pages/Home";
 
 export default function Layout() {
 
@@ -31,16 +33,16 @@ export default function Layout() {
 
     
     return (<>
-        <main className="">
+        <main className="min-h-screen flex flex-col">
             <div className={`fixed ${top < 0 ? "-left-[80px]" : "left-0"} z-[1000]`} style={{
                 transition: "left 0.6s"
             }}>
-                <SocialMedia />
+                {/* <SocialMedia /> */}
             </div>
             <Header ref={navRef} top={top} toggle={toggle} />
             <NavMobile open={open} toggle={toggle} />
             <Outlet />
-            {/* <Footer /> */}
+            <Footer />
         </main>
     </>)
 }
@@ -56,10 +58,10 @@ const NavMobile = ({ open, toggle }: INavMobile) => {
         <div className={`fixed ${open ? "block" : "hidden"} top-0 left-0 w-full h-full bg-black bg-opacity-50 z-[999]`} onClick={() => toggle(false)}>
             <div className="relative top-8 pt-8 bg-white">
                 <nav className="flex flex-col items-center justify-center gap-2 py-8">
-                    <a href="#a-propos" className="block w-full px-4 py-6 text-sm bg-[#FFC125] capitalize">à propos</a>
-                    <a href="#expertise" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Expertise</a>
+                    <a href="/" className="block w-full px-4 py-6 text-sm bg-[#FFC125] capitalize">Accueil</a>
+                    <a href="/about" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">A propos</a>
                     <a href="#services" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Services</a>
-                    <a href="#contact" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Contact</a>
+                    <a href="#contact" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Aide</a>
                 </nav>
             </div>
         </div>
