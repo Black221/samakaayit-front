@@ -21,18 +21,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					<BrowserRouter>
 						<Routes>
 
-							<Route path="/" element={<Home />} />
-
-							<Route path='/'  element={<AuthGuard />}  >
+							<Route element={<AuthGuard />}  >
 								<Route path="/app/*" element={<App />} />
 							</Route>
 
 							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
 							</Route>
-
 							<Route path='/inscription' element={<Register />} />
 							
+							<Route path="/*" element={<Home />} />
+
 						</Routes>
 					</BrowserRouter>
 				</ModalProvider>
