@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
-import Button from "./Button";
+import Button from "../components/Button";
 import { BiChevronsRight, BiChevronsLeft } from "react-icons/bi";
 
 interface ISlider {

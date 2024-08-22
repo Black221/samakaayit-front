@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { sendMessage, socket } from "../api/chat.api"
-import Button from "./Button"
+import Button from "../components/Button"
 import Input from "./Input"
 
 
