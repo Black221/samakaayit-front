@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components_obs/Input";
-import Button from "../components_obs/Button";
+import Button from "../components/Button";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
