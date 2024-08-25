@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Input from "../components/Input";
-import { CiUser } from "react-icons/ci";
-import { BsTelephone } from "react-icons/bs";
 import { CiLock } from "react-icons/ci";
 import Button from "../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";

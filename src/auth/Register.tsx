@@ -14,7 +14,6 @@ import {
     validatePassword,
     validateConfirmPassword
 } from './Validations/ValidateRegister';
-import axios from "axios";
 
 interface FormErrors {
     firstName?: string | null;

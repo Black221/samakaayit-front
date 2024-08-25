@@ -11,7 +11,7 @@ import { ModalProvider } from './providers/ModalProvider.tsx'
 
 import Home from "./home/Page.tsx";
 import AuthGuard from './guards/AuthGuard.tsx'
-import IsAuth from './guards/isAuth';
+import IsAuth from './guards/isAuth.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -25,11 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 								<Route path="/app/*" element={<App />} />
 							</Route>
 
-							{/* <Route  element={<IsAuth />}>
+							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
-							</Route> */}
+							</Route>
 							<Route path='/inscription' element={<Register />} />
-							<Route path='/connexion' element={<Login />} />
 							
 							<Route path="/*" element={<Home />} />
 
