@@ -32,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 							
 							<Route path="/*" element={<Home />} />
 
+
 						</Routes>
 					</BrowserRouter>
 				</ModalProvider>
