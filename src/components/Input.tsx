@@ -1,17 +1,17 @@
-import { useState } from "react";
-
+import { useState, ReactNode } from "react";
 
 interface Props {
     id?: string;
     label: string;
     type?: string;
-    floating?: boolean;
+    icon?: ReactNode;
     placeholder?: string;
     onChange: (value: string) => void;
     className?: string;
 }
+
 export default function Input(
-    { id, label, onChange, type, placeholder, className }: Props
+    { id, label, onChange, type, icon, placeholder, className }: Props
 ) {
 
     const [value, setValue] = useState<string | number>("");
@@ -21,12 +21,27 @@ export default function Input(
         onChange(value);
     }
 
-    return (<>
+    return (
         <div className={`w-full flex flex-col space-y-1 ${className}`}>
             <label htmlFor={id}>{label}</label>
-            <input type={type} id={id} placeholder={placeholder} className="border p-2 rounded-md" value={value} onChange={(e) => getValue(e.target.value)} autoComplete={
-                type === "password" ? "current-password" : "off"
-            } />
+            <div className="relative">
+                {icon && (
+                    <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                        {icon}
+                    </div>
+                )}
+                <input
+                    type={type}
+                    id={id}
+                    placeholder={placeholder}
+                    className={`border border-none bg-[#F2F2F2] p-2 rounded-md pl-8 w-full outline-none`}
+                    value={value}
+                    onChange={(e) => getValue(e.target.value)}
+                    autoComplete={
+                        type === "password" ? "current-password" : "off"
+                    }
+                />
+            </div>
         </div>
-    </>)
+    )
 }
