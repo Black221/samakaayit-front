@@ -25,10 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 								<Route path="/app/*" element={<App />} />
 							</Route>
 
-							<Route  element={<IsAuth />}>
+							{/* <Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
-							</Route>
+							</Route> */}
 							<Route path='/inscription' element={<Register />} />
+							<Route path='/connexion' element={<Login />} />
 							
 							<Route path="/*" element={<Home />} />
 
