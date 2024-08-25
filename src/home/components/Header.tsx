@@ -16,7 +16,7 @@ export default function Header({ ref, top, toggle }: IHeader) {
             backgroundColor: "#F2F2F2"
         }}>
             <nav className="w-full mt-10 bg-[#F2F2F2] border-gray-200 px-4 lg:px-6 py-2.5">
-                <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
                     <Logo />
                     <Menu toggle={toggle} />
                     <Links />
@@ -30,7 +30,7 @@ const Menu = ({ toggle }: { toggle: React.Dispatch<React.SetStateAction<boolean>
 
     return (<>
         <div className="flex items-center lg:order-2">
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
                 <Button label="Se connecter" className=" text-[#00AF41]  rounded-full" />
                 <Button label="S'inscrire" className=" text-white rounded-full bg-[#00AF41]" />
             </div>
@@ -49,7 +49,7 @@ const Logo = () => {
 
     return (<>
         <a href="/" className="flex items-center">
-            <img src="/Fichier 2.svg" width={100} height={200} className="mr-3  sm:h-9" alt="Flowbite Logo" />
+            <img src="/Fichier 2.svg" width={100} height={200} className="mr-3 sm:h-9" alt="Flowbite Logo" />
         </a>
     </>)
 }
@@ -58,11 +58,11 @@ const Logo = () => {
 const Links = () => {
 
     return (<>
-        <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+        <div className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <Link href="/" text="Accueil" />
                 <Link href="/about" text="A propos" />
-                <Link href="#" text="Services" />
+                <Link href="/services" text="Services" />
                 <Link href="#" text="Aide" />
             </ul>
         </div>
@@ -78,7 +78,7 @@ const Link = ({ href, text }: ILink) => {
 
     return (<>
         <li>
-            <a href={href} className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 ">{text}</a>
+            <a href={href} className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 ">{text}</a>
         </li>
     </>)
 }
