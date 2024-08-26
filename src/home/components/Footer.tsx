@@ -15,8 +15,8 @@ export default function Footer() {
                     <Button label="Consulter à la FAQ" className="text-black bg-yellow-400 rounded-full w-full lg:w-80 h-16" />
                 </div>
             </section>
-            <hr className="w-full border border-black mb-10" />
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-5 lg:gap-0 border-black">
+            <hr className="w-full mb-10 border border-black" />
+            <div className="flex flex-col items-center justify-between gap-5 border-black lg:flex-row lg:gap-0">
                 <img src="/Fichier 2.svg" width={150} height={150} alt="" className="mb-5 lg:mb-0" />
                 <div className="flex flex-col lg:flex-row justify-center items-center gap-5 text-lg lg:text-2xl text-center">
                     <a href="/">Accueil</a>
@@ -24,7 +24,7 @@ export default function Footer() {
                     <a href="#">Services</a>
                     <a href="#">Aide</a>
                 </div>
-                <div className="flex justify-center items-center gap-5 mt-5 lg:mt-0">
+                <div className="flex items-center justify-center gap-5 mt-5 lg:mt-0">
                     <Link to="#" className="cursor-pointer" ><GrFacebookOption size={25} /> </Link>
                     <Link to="#" className="cursor-pointer" ><FaTwitter size={25} /> </Link>
                     <Link to="#" className="cursor-pointer" ><FaInstagram size={25} /> </Link>

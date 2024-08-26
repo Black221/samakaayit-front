@@ -49,11 +49,11 @@ const NavMobile = ({ open, toggle }: INavMobile) => {
 
     return (<>
         <div className={`fixed ${open ? "block" : "hidden"} top-0 left-0 w-full h-full bg-black bg-opacity-50 z-[999]`} onClick={() => toggle(false)}>
-            <div className="relative top-8 pt-8 bg-white">
+            <div className="relative pt-8 bg-white top-8">
                 <nav className="flex flex-col items-center justify-center gap-2 py-8">
                     <a href="/" className="block w-full px-4 py-6 text-sm bg-[#FFC125] capitalize">Accueil</a>
                     <a href="/about" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">A propos</a>
-                    <a href="#services" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Services</a>
+                    <a href="/services" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Services</a>
                     <a href="#contact" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Aide</a>
                 </nav>
             </div>
