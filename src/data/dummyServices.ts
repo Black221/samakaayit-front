@@ -3,7 +3,8 @@ const dummyServices = [
         id: 1,
         title: 'Demande de carte d’identité nationale',
         description: 'Sollicitez et suivez l\'état de votre demande de carte nationale d\'identité.',
-        category: 'Identité et Citoyenneté'
+        category: 'Identité et Citoyenneté',
+        link:'services/cni'
     },
     {
         id: 2,
