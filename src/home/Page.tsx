@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
-import Cni from "./pages/CNI";
+import CNI from "./pages/CNI";
 
 export default function Page() {
 
@@ -13,7 +13,7 @@ export default function Page() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/services/cni" element={<Cni />} />
+                <Route path="/services/cni" element={<CNI />} />
             </Route>
         </Routes>
     </>)

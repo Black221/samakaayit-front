@@ -6,10 +6,10 @@ import watch from '../../assets/watch.png';
 import Button from "../../components/Button";
 import dummyCni from "../../data/dummycni";
 import audio from '../../assets/audio.png';                 
-import Select from "../../components_obs/Select";
+import Select from "../../components/Select";
 import { Link } from "react-router-dom";
 
-function Cni() {
+export default function CNI() {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -102,5 +102,3 @@ function Cni() {
     </>
   );
 }
-
-export default Cni;
