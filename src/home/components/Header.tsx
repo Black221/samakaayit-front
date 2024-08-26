@@ -15,8 +15,8 @@ export default function Header({ ref, top, toggle }: IHeader) {
             transition: "top 0.6s",
             backgroundColor: "#F2F2F2"
         }}>
-            <nav className="w-full mt-10 bg-[#F2F2F2] border-gray-200 px-4 lg:px-6 py-2.5">
-                <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+            <nav className="w-full mt-10 bg-[#F2F2F2] border-gray-200 px-4 lg:px-[100px] py-2.5">
+                <div className="flex flex-wrap items-center justify-between mx-auto">
                     <Logo />
                     <Menu toggle={toggle} />
                     <Links />
