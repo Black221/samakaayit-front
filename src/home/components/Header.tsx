@@ -30,9 +30,13 @@ const Menu = ({ toggle }: { toggle: React.Dispatch<React.SetStateAction<boolean>
 
     return (<>
         <div className="flex items-center lg:order-2">
-            <div className="flex items-center justify-center gap-2">
-                <Button label="Se connecter" className=" text-[#00AF41]  rounded-full" />
-                <Button label="S'inscrire" className=" text-white rounded-full bg-[#00AF41]" />
+            <div className="flex justify-center items-center gap-2">
+                <a href="/connexion">
+                    <Button label="Se connecter" className=" text-[#00AF41]  rounded-full" />
+                </a>
+                <a href="/inscription">
+                    <Button label="S'inscrire" className=" text-white rounded-full bg-[#00AF41]" />
+                </a>
             </div>
             <button onClick={() => {
                 toggle(prev => !prev)

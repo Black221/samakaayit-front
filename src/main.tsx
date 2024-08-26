@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import App from './app/App.tsx'
+import App from './app/App'
 import './index.css'
-import Login from './auth/Login.tsx'
-import Register from './auth/Register.tsx'
-import { MainProvider } from './providers/MainProvider.tsx'
-import { AuthProvider } from './providers/AuthProvider.tsx'
-import { ModalProvider } from './providers/ModalProvider.tsx'
+import Login from './auth/Login'
+import Register from './auth/Register'
+import { MainProvider } from './providers/MainProvider'
+import { AuthProvider } from './providers/AuthProvider'
+import { ModalProvider } from './providers/ModalProvider'
 
-import Home from "./home/Page.tsx";
-import AuthGuard from './guards/AuthGuard.tsx'
-import IsAuth from './guards/isAuth';
+import Home from "./home/Page";
+import AuthGuard from './guards/AuthGuard'
+import IsAuth from './guards/isAuth'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>

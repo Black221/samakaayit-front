@@ -14,14 +14,14 @@ export default function Home() {
                     <div className="flex flex-col w-full lg:w-1/2 gap-10">
                         <h2 className="font-bold text-[32px] lg:text-[50px]">Simplifiez vos démarches administratives</h2>
                         <p className="text-gray-500">Grâce à SAMAKAAYIT vous pouvez désormais effectuer toutes vos démarches administratives depuis chez vous ou depuis votre smartphone. Demandes de passeport, de carte d'identité, d'acte de naissance, paiement de taxes... toutes vos formalités sont simplifiées et accessibles 24h/24 et 7j/7. </p>
-                        <Button label="Faire une demande" className="text-white bg-yellow-400 rounded-full w-full lg:w-60" />
+                        <Button label="Faire une demande" className="text-black bg-yellow-400 rounded-full w-full lg:w-60 h-16" />
                     </div>
                     {/* Image */}
                     <div className="w-full lg:w-1/3 mt-10 lg:mt-0 flex justify-center">
                         <img src="/sohnaci.png" alt="Image" className="relative z-20 w-[80%] lg:w-auto" />
                     </div>
                 </div>
-                <div className="bg-[#E31B23] w-full h-2 mt-15 -rotate-6 absolute top-[90%] left-0 z-0">
+                <div className="bg-[#E31B23] w-full h-3 mt-15 -rotate-6 absolute top-[90%] left-0 z-0">
                 </div>
             </section>
 
