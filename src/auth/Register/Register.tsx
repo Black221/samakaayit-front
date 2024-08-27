@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { CiUser } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { CiLock } from "react-icons/ci";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
 import { BiUserPin } from "react-icons/bi";
 import {
@@ -13,7 +13,8 @@ import {
     validateIdCardNumber,
     validatePassword,
     validateConfirmPassword
-} from './Validations/ValidateRegister';
+} from '../Validations/ValidateRegister';
+import { useNavigate } from "react-router-dom";
 
 interface FormErrors {
     firstName?: string | null;
@@ -36,6 +37,7 @@ export default function Register() {
 
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<FormErrors>({});
+    const navigate = useNavigate();
 
     const handleChange = (name: string) => (value: string) => {
         setFormData(prevState => ({
@@ -60,14 +62,19 @@ export default function Register() {
 
         if (Object.values(validationErrors).every(error => !error)) {
             setLoading(true);
-            // axios.post('https://')
-            // console.log("Form Data:", formData);
+            // Simuler la soumission des données
+            setTimeout(() => {
+                setLoading(false);
+                navigate('/confirmation', { state: { formData } }); // Passer formData en tant qu'état
+            }, 1000); // Remplacez ceci par l'appel API réel si nécessaire
         }
     };
 
     return (
-        <div className="lg:ml-20 mx-5 mt-16 ">
-            <img src="/Fichier 2.svg" alt="" width={150} height={150} />
+        <div className="lg:ml-20 mx-5 mt-16">
+            <a href="/" className="flex flex-col mb-10 items-center lg:flex-row">
+                <img src="/Fichier 2.svg" alt="" width={150} height={150} />
+            </a>
             <div className="flex flex-col gap-5 justify-center items-center">
                 <div className="flex flex-col items-center justify-center gap-5">
                     <h2 className="text-4xl font-bold">Inscription</h2>
@@ -146,12 +153,10 @@ export default function Register() {
                     <Button
                         disabled={loading}
                         className="bg-[#00AF41] text-white w-full h-14 md:w-[300px] rounded-full mt-20 cursor-pointer"
-                        label={loading ? <BiLoaderCircle size={20} className="animate-spin w-full" /> : "Créer un compte"}
+                        label={loading ? <BiLoaderCircle size={20} className="animate-spin" /> : "Créer un compte"}
                     />
                 </form>
-
             </div>
         </div>
-    )
+    );
 }
-

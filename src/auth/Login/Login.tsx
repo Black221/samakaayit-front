@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Input from "../components/Input";
+import Input from "../../components/Input";
 import { CiLock } from "react-icons/ci";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
 import { BiUserPin } from "react-icons/bi";
 import {
     validateIdCardNumber,
     validatePassword,
-} from './Validations/ValidateLogin';
+} from '../Validations/ValidateLogin';
 
 interface FormErrors {
     idCardNumber?: string | null;
@@ -48,7 +48,9 @@ export default function Login() {
 
     return (
         <div className="lg:ml-20 mx-5 mt-16 ">
-            <img src="/Fichier 2.svg" alt="" width={150} height={150} />
+            <a href="/" className="flex flex-col mb-10 items-center lg:flex-row">
+                <img src="/Fichier 2.svg" alt="" width={150} height={150} />
+            </a>
             <div className="flex flex-col gap-5 justify-center items-center">
                 <div className="flex flex-col items-center justify-center gap-5">
                     <h2 className="text-4xl font-bold">Connexion</h2>
@@ -80,11 +82,11 @@ export default function Login() {
                         </div>
                         {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
-                    <Button
-                        disabled={loading}
-                        className="bg-[#00AF41] text-white w-full h-14 rounded-full mt-10 cursor-pointer"
-                        label={loading ? <BiLoaderCircle size={20} className="animate-spin w-full" /> : "Se connecter"}
-                    />
+                        <Button
+                            disabled={loading}
+                            className="bg-[#00AF41] text-white w-full h-14 rounded-full mt-10 cursor-pointer"
+                            label={loading ? <BiLoaderCircle size={20} className="animate-spin w-full" /> : "Se connecter"}
+                        />
                     </div>
                 </form>
 

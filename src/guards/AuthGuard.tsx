@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Login from "../auth/Login";
+import Login from "../auth/Login/Login";
 import { useAuth } from "../hooks/useAuth";
 
 
