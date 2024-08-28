@@ -65,7 +65,7 @@ export default function Register() {
             // Simuler la soumission des données
             setTimeout(() => {
                 setLoading(false);
-                navigate('/confirmation', { state: { formData } }); // Passer formData en tant qu'état
+                navigate('/connexion-choisir-methode', { state: { formData } }); // Passer formData en tant qu'état
             }, 1000); // Remplacez ceci par l'appel API réel si nécessaire
         }
     };
