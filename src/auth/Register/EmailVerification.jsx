@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
@@ -9,21 +9,37 @@ function EmailVerification() {
     const { email } = location.state || {}; // Retrieve the email passed during navigation
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleCodeChange = (value) => {
         setCode(value); 
+        setError(''); // Clear error message when user types
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        console.log(email);
+
+        // Check if code contains only numbers
+        if (!/^\d+$/.test(code)) {
+            setLoading(false);
+            setError('Le code doit être composé uniquement de chiffres.');
+            return;
+        }
 
         // Simulate code verification
         setTimeout(() => {
             setLoading(false);
-            // Logic to verify the code
-        }, 2000); // Replace this with actual logic
+            // Replace with actual code verification logic
+            const isCodeValid = true; // Change this based on your verification logic
+
+            if (isCodeValid) {
+                navigate('/welcome');
+            } else {
+                setError('Le code est incorrect. Veuillez réessayer.');
+            }
+        }, 2000);
     };
 
     // Format the email to hide part of it
@@ -46,6 +62,7 @@ function EmailVerification() {
                 <div className="flex flex-col items-center justify-center gap-5">
                     <h2 className='font-bold text-center text-4xl max-w-[600px]'>Nous vous avons envoyé un code de vérification par e-mail</h2>
                     <p className='text-gray-500'>Entrez le code que vous avez reçu par mail {formatEmail(email)}</p>
+                    {error && <p className='text-red-500'>{error}</p>}
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-5">
