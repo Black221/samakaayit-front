@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
-								<Route path='/connexion-confirmation' element={<SmsVerification />} />
+								<Route path='/connexion-confirmation-sms' element={<SmsVerification />} />
 								<Route path='/connexion-choisir-methode' element={<ChooseAlternateMethod />} />
 							</Route>
 							<Route path='/inscription' element={<Register />} />
