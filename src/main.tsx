@@ -16,6 +16,7 @@ import SmsVerification from './auth/Register/smsVerification'
 import ChooseAlternateMethod from './auth/Register/ChooseAlternateMethod'
 import EnterEmail from './auth/Register/EnterEmail'
 import EmailVerification from './auth/Register/EmailVerification'
+import VerificationResult from './auth/Register/VerificationResult'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 								<Route path='/connexion-confirmation-email' element={<EmailVerification />} />
 								<Route path='/connexion-enter-email' element={<EnterEmail />} />
 								<Route path='/connexion-choisir-methode' element={<ChooseAlternateMethod />} />
+								<Route path='/welcome' element={<VerificationResult />} />
 							</Route>
 							<Route path='/inscription' element={<Register />} />
 							
