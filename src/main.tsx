@@ -14,6 +14,7 @@ import AuthGuard from './guards/AuthGuard'
 import IsAuth from './guards/isAuth'
 import SmsVerification from './auth/Register/smsVerification'
 import ChooseAlternateMethod from './auth/Register/ChooseAlternateMethod'
+import EnterEmail from './auth/Register/EnterEmail'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -29,7 +30,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
-								<Route path='/connexion-confirmation' element={<SmsVerification />} />
+								<Route path='/connexion-confirmation-sms' element={<SmsVerification />} />
+								<Route path='/connexion-confirmation-email' element={<EnterEmail />} />
 								<Route path='/connexion-choisir-methode' element={<ChooseAlternateMethod />} />
 							</Route>
 							<Route path='/inscription' element={<Register />} />
