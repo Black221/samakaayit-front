@@ -15,6 +15,7 @@ import {
     validateConfirmPassword
 } from '../Validations/ValidateRegister';
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha"
 
 interface FormErrors {
     firstName?: string | null;
@@ -26,6 +27,9 @@ interface FormErrors {
 }
 
 export default function Register() {
+
+    const ReCaptChaKEY = import.meta.env.VITE_RECAPTCHA_KEY_CLIENT
+
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -37,6 +41,9 @@ export default function Register() {
 
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<FormErrors>({});
+    const [captchaValidated, setCaptchaValidated] = useState(false);
+    const [captchaError, setCaptchaError] = useState<string | null>(null);
+
     const navigate = useNavigate();
 
     const handleChange = (name: string) => (value: string) => {
@@ -48,7 +55,7 @@ export default function Register() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         const validationErrors: FormErrors = {
             firstName: validateFirstName(formData.firstName),
             lastName: validateLastName(formData.lastName),
@@ -57,16 +64,31 @@ export default function Register() {
             password: validatePassword(formData.password),
             confirmPassword: validateConfirmPassword(formData.password, formData.confirmPassword),
         };
-
+    
         setErrors(validationErrors);
-
-        if (Object.values(validationErrors).every(error => !error)) {
+    
+        if (!captchaValidated) {
+            setCaptchaError("Veuillez compléter le reCAPTCHA.");
+        } else {
+            setCaptchaError(null);
+        }
+    
+        if (Object.values(validationErrors).every(error => !error) && captchaValidated) {
             setLoading(true);
-            // Simuler la soumission des données
             setTimeout(() => {
                 setLoading(false);
-                navigate('/connexion-choisir-methode', { state: { formData } }); // Passer formData en tant qu'état
-            }, 1000); // Remplacez ceci par l'appel API réel si nécessaire
+                navigate('/connexion-choisir-methode', { state: { formData } });
+            }, 1000);
+        }
+    };
+    
+
+    const onChange = (token: string | null) => {
+        if (token) {
+            setCaptchaValidated(true);
+            setCaptchaError(null); // Clear any previous errors
+        } else {
+            setCaptchaValidated(false);
         }
     };
 
@@ -83,7 +105,7 @@ export default function Register() {
                         <a href="/connexion" className="underline text-[#00AF41]">Se connecter</a>
                     </div>
                 </div>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5 justify-center items-center w-full max-w-4xl px-4 md:px-8">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-10 justify-center items-center w-full max-w-4xl px-4 md:px-8">
                     <div className="flex flex-col md:flex-row gap-5 md:gap-20 w-full">
                         <div className="flex flex-col gap-5 w-full md:w-1/2">
                             <div className="flex relative border-b-2 border-black pb-1">
@@ -150,9 +172,17 @@ export default function Register() {
                             {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
                         </div>
                     </div>
+
+                    {/* Recapcha */}
+                    <ReCAPTCHA
+                        sitekey={ReCaptChaKEY}
+                        onChange={onChange}
+                    />
+                    {captchaError && <p className="text-red-500 text-sm">{captchaError}</p>}
+
                     <Button
                         disabled={loading}
-                        className="bg-[#00AF41] text-white w-full h-14 md:w-[300px] rounded-full mt-20 cursor-pointer"
+                        className="bg-[#00AF41] text-white w-full h-14 md:w-[300px] mb-10 rounded-full cursor-pointer"
                         label={loading ? <BiLoaderCircle size={20} className="animate-spin" /> : "Créer un compte"}
                     />
                 </form>
