@@ -13,6 +13,7 @@ import Home from "./home/Page";
 import AuthGuard from './guards/AuthGuard'
 import IsAuth from './guards/isAuth'
 import SmsVerification from './auth/Register/smsVerification'
+import ChooseAlternateMethod from './auth/Register/ChooseAlternateMethod'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -28,7 +29,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
-								<Route path='/confirmation' element={<SmsVerification />} />
+								<Route path='/connexion-confirmation' element={<SmsVerification />} />
+								<Route path='/connexion-choisir-methode' element={<ChooseAlternateMethod />} />
 							</Route>
 							<Route path='/inscription' element={<Register />} />
 							

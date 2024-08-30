@@ -44,7 +44,7 @@ function SmsVerification() {
 
                 <div className="flex flex-col items-center justify-center gap-5">
                     <h2 className='font-bold text-center text-4xl max-w-[600px]'>Nous vous avons envoyé un code de vérification par SMS</h2>
-                    <p>Entrez le code que vous avez reçu au {formatPhoneNumber(formData?.number)}</p>
+                    <p className='text-gray-500'>Entrez le code que vous avez reçu au {formatPhoneNumber(formData?.number)}</p>
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-5">
@@ -55,7 +55,7 @@ function SmsVerification() {
                                 type="text"
                                 placeholder="-        -        -        -        -        -"
                                 value={code}
-                                onChange={handleCodeChange} // Pass the function reference
+                                onChange={handleCodeChange} 
                                 textAlign='text-center'
                                 className='text-center'
                             />
@@ -65,7 +65,7 @@ function SmsVerification() {
                             className="bg-[#00AF41] text-white w-full h-14 md:w-[350px] rounded-full mt-10 cursor-pointer"
                             label={loading ? <BiLoaderCircle size={20} className="animate-spin" /> : "Valider"}
                         />
-                        <a href="#" className='text-[#00AF41] underline font-bold'>Choisir une autre méthode</a>
+                        <a href="/connexion-choisir-methode" className='text-[#00AF41] underline font-bold'>Choisir une autre méthode</a>
                     </form>
                 </div>
             </div>
