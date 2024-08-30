@@ -22,7 +22,7 @@ function ChooseAlternateMethod() {
             if (selectedMethod === 'Par téléphone') {
                 navigate('/connexion-confirmation-sms', { state: { formData, selectedMethod } });
             } else if (selectedMethod === 'Par e-mail') {
-                navigate('/connexion-confirmation-email', { state: { formData, selectedMethod } });
+                navigate('/connexion-enter-email', { state: { formData, selectedMethod } });
             }
 
             // Logique pour vérifier le code
