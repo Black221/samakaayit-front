@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './app/App'
 import './index.css'
-import Login from './auth/Login'
-import Register from './auth/Register'
+import Login from './auth/Login/Login'
+import Register from './auth/Register/Register'
 import { MainProvider } from './providers/MainProvider'
 import { AuthProvider } from './providers/AuthProvider'
 import { ModalProvider } from './providers/ModalProvider'
@@ -12,6 +12,7 @@ import { ModalProvider } from './providers/ModalProvider'
 import Home from "./home/Page";
 import AuthGuard from './guards/AuthGuard'
 import IsAuth from './guards/isAuth'
+import SmsVerification from './auth/Register/smsVerification'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 							<Route  element={<IsAuth />}>
 								<Route path='/connexion' element={<Login />} />
+								<Route path='/confirmation' element={<SmsVerification />} />
 							</Route>
 							<Route path='/inscription' element={<Register />} />
 							

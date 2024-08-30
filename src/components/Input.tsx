@@ -8,10 +8,11 @@ interface Props {
     placeholder?: string;
     onChange: (value: string) => void;
     className?: string;
+    textAlign?: string; // Ajoutez une prop pour le padding-left
 }
 
 export default function Input(
-    { id, label, onChange, type, icon, placeholder, className }: Props
+    { id, label, onChange, type, icon, placeholder, className, textAlign = "text-normal" }: Props
 ) {
 
     const [value, setValue] = useState<string | number>("");
@@ -34,7 +35,7 @@ export default function Input(
                     type={type}
                     id={id}
                     placeholder={placeholder}
-                    className={`border border-none bg-[#F2F2F2] p-2 rounded-md pl-8 w-full outline-none`}
+                    className={`border border-none bg-[#F2F2F2] p-2 rounded-md pl-8 ${textAlign} w-full outline-none`} // Utilisez la prop paddingLeft ici
                     value={value}
                     onChange={(e) => getValue(e.target.value)}
                     autoComplete={
