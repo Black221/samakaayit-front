@@ -30,7 +30,7 @@ const Menu = ({ toggle }: { toggle: React.Dispatch<React.SetStateAction<boolean>
 
     return (<>
         <div className="flex items-center lg:order-2">
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
                 <a href="/connexion">
                     <Button label="Se connecter" className=" text-[#00AF41]  rounded-full" />
                 </a>
@@ -67,7 +67,7 @@ const Links = () => {
                 <Link href="/" text="Accueil" />
                 <Link href="/about" text="A propos" />
                 <Link href="/services" text="Services" />
-                <Link href="#" text="Aide" />
+                <Link href="/aide" text="Aide" />
             </ul>
         </div>
     </>)
