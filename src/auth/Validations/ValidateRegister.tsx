@@ -2,12 +2,16 @@ export const validateFirstName = (firstName: string): string | null => {
     if (!firstName) {
         return "Le prénom est requis.";
     }
+    if (firstName.length < 2) {
+        return "Le prénom doit comporter au moins 2 caractères.";
+    }
     const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
     if (!nameRegex.test(firstName)) {
-        return "Le prénom doit comporter au moins 2 caractères, ne peut contenir que des lettres, et peut inclure des espaces pour les prénoms composés.";
+        return "Le prénom ne peut contenir que des lettres et peut inclure des espaces pour les prénoms composés.";
     }
     return null;
 };
+
 
 
 export const validateLastName = (lastName: string): string | null => {
