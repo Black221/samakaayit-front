@@ -22,7 +22,7 @@ export default function Select(
     return (<>
         <div className={`w-full flex flex-col space-y-2 ${className}`}>
             <label htmlFor="name">{label}</label>
-            <select id="name" className="border p-2 rounded-md" value={value} onChange={(e) => getValue(e.target.value)}>
+            <select id="name" className="p-2 border rounded-md"  value={value} onChange={(e) => getValue(e.target.value)}>
                 {options.map((option, index) => (
                     <option key={index} value={option}>{
                         option

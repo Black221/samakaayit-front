@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import CNI from "./pages/CNI";
 import Aide from "./pages/Aide";
+import DemandeCni from "./pages/cni/demandeCni";
+
 
 export default function Page() {
 
@@ -16,6 +18,7 @@ export default function Page() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/services/cni" element={<CNI />} />
                 <Route path="/aide" element={<Aide />} />
+                <Route path="/services/cni/demande" element={<DemandeCni />} />
             </Route>
         </Routes>
     </>)
