@@ -4,6 +4,11 @@ import Layout from "./Layout"
 import { useMainState } from "../hooks/useMainState";
 import { useEffect } from "react";
 
+import Dashboard from "./Dashboard";
+import RendezVous from "./Rendez-vous/Page";
+import Demande from "./Demande/Page";
+import Notification from "./Notification/Page";
+
 
 function App() {
 
@@ -32,7 +37,10 @@ function App() {
 	return (<>
 		<Routes>
 			<Route path="/" element={<Layout />}>
-				<Route path="/*" element={<div>Test</div>} />
+				<Route path="/" element={<Dashboard />} />
+                <Route path="/rendez-vous/*" element={<RendezVous />} />
+                <Route path="/demande/*" element={<Demande />} />
+                <Route path="/notification/*" element={<Notification />} />
 			</Route>
 		</Routes>
 	</>)

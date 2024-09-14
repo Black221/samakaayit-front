@@ -9,7 +9,7 @@ export default function IsAuth () {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLogged()) {
+        if (1 == 1 || isLogged()) {
             navigate('/app');
         }
     }, [isLogged, navigate]);

@@ -1,6 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useMainState } from "../hooks/useMainState";
+import AppSidebar from "../components/AppSidebar";
+import AppHeader from "../components/AppHeader";
+import AppFooter from "../components/AppFooter";
 
 
 export default function Layout() {
@@ -44,16 +47,28 @@ export default function Layout() {
     // }
     
     return (<>
-        <div  ref={ref} onClick={handleClick} className="flex relative">
+        <div  ref={ref} onClick={handleClick} className="flex relative bg-white">
             <div ref={sidebarRef}>
+                <AppSidebar />
             </div>
-            <div  className="flex-1 flex flex-col  h-screen">
-                <div className="flex-1 flex flex-col bg-white p-2 md:px-4">
-                    <div className=" bg-gray-100 rounded-2xl flex-1 md:px-6 p-4 py-0">
-                        <Outlet />
-                    </div>
+            <div  className="flex-1 flex flex-col h-screen overflow-hidden mx-14">
+
+                <div className="mt-14 mb-8">
+                    <AppHeader />
+                </div>
+
+                <div className="flex-1 flex flex-col bg-white overflow-auto">
+                    <Outlet />
+                </div>
+
+                <div>
+                    <AppFooter />
                 </div>
             </div>
+        </div>
+
+        <div id="app-svg" className="hidden">
+
         </div>
     </>)
 }
