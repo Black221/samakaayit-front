@@ -24,9 +24,9 @@ export default function Layout () {
             <nav className="flex items-center gap-4">
                 {
                     types.map((type, index) => {
-                        return <button key={index} className={`p-2 ${location.pathname.includes(type.value) ? 'border-b-2 border-primary-700 text-primary-700' : ''}`}>
-                            <NavLink to={"liste/"+type.value}>{type.label}</NavLink>
-                        </button>
+                        return <NavLink to={"liste/"+type.value} key={index} className={`p-2 ${location.pathname.includes(type.value) ? 'border-b-2 border-primary-700 text-primary-700' : ''}`}>
+                            {type.label}
+                        </NavLink>
                     })
                 }
             </nav>
