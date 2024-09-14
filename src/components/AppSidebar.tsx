@@ -37,7 +37,13 @@ export default function AppSidebar () {
 
     const location = useLocation();
 
-    console.log(location.pathname)
+    const isActive = (route: string) => {
+        if (route === '/app' && location.pathname !== '/app') {
+            return false;
+        }
+        return location.pathname.includes(route);
+    }
+
 
     return (<>
         <div className="flex flex-col h-full justify-start w-64 bg-white border-r border-r-[#8585852B]">
@@ -53,7 +59,7 @@ export default function AppSidebar () {
                     links.map((link, index) => (
                         <div 
                             key={index} 
-                            className={`flex items-center justify-start gap-6 relative w-full py-4 pl-4 rounded-l-full ${location.pathname === link.route ? 'bg-secondary-100' : ''}`}
+                            className={`flex items-center justify-start gap-6 relative w-full py-4 pl-4 rounded-l-full ${isActive(link.route) ? 'bg-secondary-100' : ''}`}
                         >
                             <div className="w-8 h-8 rounded-full">
                                 {/* Use svg */}
