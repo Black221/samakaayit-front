@@ -2,16 +2,20 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 
 
+import List from "./List";
+import Details from "./Details";
+
+
 export default function Page() {
 
     return (<>
         <Routes>
             <Route path="/" element={<Layout />}>
 
-                <Route path="/" element={<>
-                    <h1>Rendez-vous</h1>
-                    <p>Page de gestion des rendez-vous</p>
-                </>} />
+                <Route path="/" element={<List />} />
+                <Route path="/liste/:type" element={<List />} />
+                <Route path="/:id" element={<Details />} />
+
             </Route>
         </Routes>
     </>)

@@ -1,4 +1,4 @@
-
+import img from '../assets/5841882_2968305 1.png';
 
 export default function Dashboard () {
 
@@ -48,7 +48,7 @@ export default function Dashboard () {
             <div className="flex flex-col gap-4  w-80">
                 <div className="bg-white p-4 rounded-lg shadow drop-shadow">
                     <div>
-                        <img src="src/assets/5841882_2968305 1.png" alt="" />
+                        <img src={img} alt="" />
                     </div>
                     <div className="bg-tertiary-400 w-full rounded-bl-full rounded-tr-full p-3 text-center font-bold">
                         Enquête de satisfaction
