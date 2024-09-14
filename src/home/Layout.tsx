@@ -54,7 +54,7 @@ const NavMobile = ({ open, toggle }: INavMobile) => {
                     <a href="/" className="block w-full px-4 py-6 text-sm bg-[#FFC125] capitalize">Accueil</a>
                     <a href="/about" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">A propos</a>
                     <a href="/services" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Services</a>
-                    <a href="#contact" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Aide</a>
+                    <a href="/aide" className="block w-full px-4 py-6 text-sm bg-[#FFC125]">Aide</a>
                 </nav>
             </div>
         </div>

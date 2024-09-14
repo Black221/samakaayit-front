@@ -7,10 +7,11 @@ import Button from "../../components/Button";
 import dummyCni from "../../data/dummycni";
 import audio from '../../assets/audio.png';                 
 import Select from "../../components/Select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CNI() {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate()
 
   return (
     <>
@@ -86,7 +87,9 @@ export default function CNI() {
             </div>
 
             <div className="flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
-              <Button label="Faire une demande" className="w-full px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out bg-green-600 rounded-full md:px-6 md:py-3 md:text-base md:w-auto hover:bg-green-600/80" />
+              <Button label="Faire une demande" className="w-full px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out bg-green-600 rounded-full md:px-6 md:py-3 md:text-base md:w-auto hover:bg-green-600/80" 
+              onClick={()=> navigate("/services/cni/demande")}
+              />
               <a href="#" className="text-base font-semibold underline md:text-lg text-neutral-900">Prendre rendez-vous</a>
             </div>
           </div>

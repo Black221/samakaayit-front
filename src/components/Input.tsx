@@ -34,8 +34,9 @@ export default function Input(
                 <input
                     type={type}
                     id={id}
+                    multiple={type === "file" ? true : false}
                     placeholder={placeholder}
-                    className={`border border-none bg-[#F2F2F2] p-2 rounded-md pl-8 ${textAlign} w-full outline-none`} // Utilisez la prop paddingLeft ici
+                    className={`border border-none bg-[#F2F2F2] p-2 rounded-md pl-8 ${textAlign} w-full outline-none`} 
                     value={value}
                     onChange={(e) => getValue(e.target.value)}
                     autoComplete={
