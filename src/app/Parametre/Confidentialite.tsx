@@ -1,12 +1,25 @@
+import useAxios from "../../hooks/useAxios";
+import serverInstance from "../../api/server";
+import { useEffect } from "react";
 
 
 export default function Confidentialité() {
-    return (
-        <div>
-            <h1>Confidentialité</h1>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nunc nec tristique ultrices, nunc nisl ultricies libero, nec ultricies mi nunc nec nisl. Nullam id nunc nec nisl ultricies ultricies. Nullam auctor, nunc nec tristique ultrices, nunc nisl ultricies libero, nec ultricies mi nunc nec nisl. Nullam id nunc nec nisl ultricies ultricies. Nullam auctor, nunc nec tristique ultrices, nunc nisl ultricies libero, nec ultricies mi nunc nec nisl. Nullam id nunc nec nisl ultricies ultricies.
-            </p>
-        </div>
-    )
+
+    const {
+        client, response, error, loading
+    } = useAxios(serverInstance);
+
+
+
+    useEffect(() => {
+        // Make a GET request
+        client.get('/users/');
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    return <div>Response: {JSON.stringify(response)}</div>;
 }

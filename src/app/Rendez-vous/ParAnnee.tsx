@@ -11,12 +11,12 @@ export default function ParAnnee () {
 
     return (<>
         
-        <div className="grid grid-cols-3 gap-10 p-4">
+        <div className="grid grid-cols-3 gap-10 p-4 border-l">
             {
                 mois.map((_, index) => {
                     return <div key={index} className="flex-1 items-center text-center gap-1 p-1">
                         <p className="text-xs">
-                            <Calendar year={2023} month={index} getDate={() => {}} />
+                            <Calendar year={2024} month={index} getDate={() => {}} />
                         </p>
                     </div>
                 })
