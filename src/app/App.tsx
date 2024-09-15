@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import RendezVous from "./Rendez-vous/Page";
 import Demande from "./Demande/Page";
 import Notification from "./Notification/Page";
+import Parametre from "./Parametre/Page";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/rendez-vous/*" element={<RendezVous />} />
                 <Route path="/demande/*" element={<Demande />} />
                 <Route path="/notification/*" element={<Notification />} />
+                <Route path="/parametres/*" element={<Parametre />} />
 			</Route>
 		</Routes>
 	</>)

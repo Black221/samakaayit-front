@@ -3,6 +3,7 @@ import dashboardSvg from '../assets/svg/Dashboard_V.svg';
 import demandeSvg from '../assets/svg/Demande_V.svg';
 import notificationSvg from '../assets/svg/Message_V.svg';
 import rendezVousSvg from '../assets/svg/RV_V.svg';
+import parametresSvg from '../assets/svg/Param.svg';
 
 import logo from '../assets/svg/logo.svg';
 
@@ -32,6 +33,11 @@ export default function AppSidebar () {
             icon: notificationSvg,
             route: '/app/notification'
         },
+        {
+            name: 'Paramètres',
+            icon: parametresSvg,
+            route: '/app/parametres'
+        }
     ]
 
 
