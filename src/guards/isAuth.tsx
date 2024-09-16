@@ -14,6 +14,5 @@ export default function IsAuth () {
         }
     }, [isLogged, navigate]);
 
-    
     return <Outlet />
 }
