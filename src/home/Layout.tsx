@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 // import { SocialMedia } from "./components/SocialMedia";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function Layout() {
 
@@ -11,6 +12,8 @@ export default function Layout() {
     const [open, toggle] = useState(false);
 
 	const navRef = useRef<HTMLDivElement>(null);
+
+    const queryClient = new QueryClient();
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -31,12 +34,14 @@ export default function Layout() {
 
     
     return (<>
-        <main className="">
-            <Header ref={navRef} top={top} toggle={toggle} />
-            <NavMobile open={open} toggle={toggle} />
-            <Outlet />
-            <Footer />
-        </main>
+    <QueryClientProvider client={queryClient}>
+      <main className="">
+        <Header ref={navRef} top={top} toggle={toggle} />
+        <NavMobile open={open} toggle={toggle} />
+        <Outlet />
+        <Footer />
+      </main>
+    </QueryClientProvider>
     </>)
 }
 
