@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
-import CNI from "./pages/CNI";
+import CNI from "./pages/DetailsService";
 import Aide from "./pages/Aide";
 import DemandeCni from "./pages/cni/demandeCni";
 
