@@ -7,11 +7,59 @@ import Button from "../../components/Button";
 import dummyCni from "../../data/dummycni";
 import audio from '../../assets/audio.png';                 
 import Select from "../../components/Select";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-export default function CNI() {
+
+interface Institution {
+  _id: string;
+  name: string;
+  department: string;
+  domain: string;
+  locality: string;
+  services?: string[];
+  __v?: number;
+}
+
+interface Field {
+  label: string;
+  fieldType: string;
+  required: boolean;
+}
+
+interface Service {
+  _id: string;
+  name: string;
+  category: string;
+  documentName: string;
+  fees: number;
+  processingTime: string;
+  description: string;
+  link: string;
+  institutions: Institution[];
+  fields: Field[];
+}
+
+export default function DetailsService() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate()
+  
+  const { serviceId } = useParams();
+  
+  const getSingleService = async(serviceId: string): Promise<Service> => {
+    const {data} = await axios.get(`https://gouvhackaton-1.onrender.com/services/${serviceId}`);
+    return data || [];
+  }
+  
+  const { data: service, error, isLoading } = useQuery<Service, Error>({
+    queryKey: ['service', serviceId],
+    queryFn: () => getSingleService(serviceId!),
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  console.log(service?.name)
 
   return (
     <>
@@ -52,23 +100,22 @@ export default function CNI() {
             <div className="flex flex-col items-start w-full gap-5 mb-6 md:flex-row md:items-center">
               <div>
                 <h1 className="mb-2 text-xl font-bold text-green-800 md:mb-4 md:text-2xl">
-                  {dummyCni.title}
+                  {service?.name}
                 </h1>
-                <p className="mb-4 text-sm text-gray-600 md:mb-8 md:text-base">{dummyCni.description}</p>
+                <p className="mb-4 text-sm text-gray-600 md:mb-8 md:text-base">{dummyCni?.description}</p>
               </div>
               <div className="flex items-center justify-start gap-3 mt-4 md:justify-center md:gap-5 md:-translate-y-16">
-                <Select onChange={(e) => e} className="w-24 h-8 text-sm md:w-32 md:h-10 md:text-base" label="" options={["Wolof","Francais"]} />
+                <Select onChange={(e) => e} className="w-24 h-8 text-sm md:w-32 md:h-10 md:text-base" label="" options={["Wolof"]} />
                 <img src={audio} alt="audio" className="w-8 h-8 md:w-10 md:h-10"/>
               </div>
             </div>
             
             <div className="mb-8 space-y-4">
               {[
-                { title: "Frais de dossier :", content: dummyCni.fees },
-                { title: "Qui peut faire la demande ?", content: dummyCni.eligibility },
-                { title: "Structure en charge du service", content: dummyCni.responsibleStructure },
-                { title: "Institution compétente", content: dummyCni.competentInstitution },
-                { title: "Heure de service", content: dummyCni.serviceHours }
+                { title: "Frais de dossier :", content: `${service?.fees} FCFA` },
+                { title: "Délai de traitement :", content: service?.processingTime },
+                { title: "Document délivré :", content: service?.documentName },
+                { title: "Institutions compétentes :", content: service?.institutions.map(inst => inst.name).join(", ") },
               ].map((item, index) => (
                 <div key={index} className="flex flex-col gap-2 md:gap-3">
                   <h3 className="text-sm font-semibold text-green-800 md:text-base">{item.title}</h3>
@@ -88,7 +135,7 @@ export default function CNI() {
 
             <div className="flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
               <Button label="Faire une demande" className="w-full px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out bg-green-600 rounded-full md:px-6 md:py-3 md:text-base md:w-auto hover:bg-green-600/80" 
-              onClick={()=> navigate("/services/cni/demande")}
+              onClick={()=> navigate(`/services/${serviceId}/demande`)}
               />
               <a href="#" className="text-base font-semibold underline md:text-lg text-neutral-900">Prendre rendez-vous</a>
             </div>
