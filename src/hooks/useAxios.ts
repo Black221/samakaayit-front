@@ -220,16 +220,24 @@ const useAxios = (
         get: (url: string, config: AxiosRequestConfig = {}, options: { staleTime?: number; retryConfig?: RetryConfig } = {}) => {
             return axiosFetch({ method: 'GET', url, requestConfig: config }, options);
         },
-        post: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {}) => {
+        post: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+            retryConfig: { retries: 1, delay: 1000 }
+        }) => {
             return axiosFetch({ method: 'POST', url, requestConfig: { ...config, data } }, options);
         },
-        put: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {}) => {
+        put: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+            retryConfig: { retries: 1, delay: 1000 }
+        }) => {
             return axiosFetch({ method: 'PUT', url, requestConfig: { ...config, data } }, options);
         },
-        patch: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {}) => {
+        patch: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+            retryConfig: { retries: 1, delay: 1000 }
+        }) => {
             return axiosFetch({ method: 'PATCH', url, requestConfig: { ...config, data } }, options);
         },
-        delete: (url: string, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {}) => {
+        delete: (url: string, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+            retryConfig: { retries: 1, delay: 1000 }
+        }) => {
             return axiosFetch({ method: 'DELETE', url, requestConfig: config }, options);
         }
     };

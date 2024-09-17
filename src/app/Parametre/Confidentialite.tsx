@@ -13,7 +13,10 @@ export default function Confidentialité() {
 
     useEffect(() => {
         // Make a GET request
-        client.get('/users/');
+        client.get('/users/', )
+        client.post('/users', { name: 'John Doe' })
+        client.put('/users/123', { name: 'John Doe' })
+        client.delete('/users/123')
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
