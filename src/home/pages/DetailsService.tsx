@@ -98,7 +98,7 @@ export default function DetailsService() {
 
       <section className="container max-w-5xl px-4 mx-auto mb-12 md:mb-24">
         <div className="flex items-center mb-6 text-green-600 cursor-pointer">
-          <IoArrowBack size={20} />
+          <Link to="/services"><IoArrowBack size={20} /></Link>
           <Link to="/services" className="ml-2 text-sm md:text-base">Retour</Link>
         </div>
 
@@ -157,7 +157,7 @@ export default function DetailsService() {
             <div className="flex items-center justify-center w-full h-48 mb-4 rounded-lg md:h-64">
               <img src={watch} alt="CNIwatch" className="max-w-full max-h-full" />
             </div>
-            <a href={service?.youtubeLink || "#"} className="font-semibold text-[#00AF41] underline text-center text-sm md:text-base">Regarder le tutoriel</a>
+            <a href={service?.youtubeLink || "#"} target="_blank" className="font-semibold text-[#00AF41] underline text-center text-sm md:text-base">Regarder le tutoriel</a>
           </div>
         </div>
       </section>
