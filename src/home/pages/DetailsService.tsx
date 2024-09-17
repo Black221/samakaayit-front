@@ -64,6 +64,7 @@ export default function DetailsService() {
   });
 
   /**
+   * getUrlDemand()
    * retrrive last element of the url from link attribute
    */
   const getUrlDemand = (url: string) => {
@@ -71,6 +72,20 @@ export default function DetailsService() {
     return urlArray[urlArray.length - 1]; 
   }
 
+  /**
+   * play an audio and stop it asked by user
+   */
+  const playAudio =(audioUrl : string) => {
+    if(service?.wolofVoiceLink){
+      const audio = new Audio(audioUrl);
+      audio.play();
+      audio.onended = () => {
+        audio.pause();
+      }
+    }else
+      alert("Pas de fichier audio disponible")
+  }
+  
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   console.log(service?.name)
@@ -120,7 +135,7 @@ export default function DetailsService() {
               </div>
               <div className="flex items-center justify-start gap-3 mt-4 md:justify-center md:gap-5 md:-translate-y-16">
                 <Select onChange={(e) => e} className="w-24 h-8 text-sm md:w-32 md:h-10 md:text-base" label="" options={["Wolof"]} />
-                  <img src={audio} alt="audio" className="w-8 h-8 md:w-10 md:h-10"/>
+                  <img src={audio} alt="audio" className="w-8 h-8 md:w-10 md:h-10" onClick={() => playAudio(service?.wolofVoiceLink || "")}/>
               </div>
             </div>
             
