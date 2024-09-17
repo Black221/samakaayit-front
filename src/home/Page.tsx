@@ -4,8 +4,8 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Aide from "./pages/Aide";
-import DemandeCni from "./pages/cni/demandeCni";
 import DetailsService from "./pages/DetailsService";
+import Demande from "./pages/cni/demande";
 
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/services/:serviceId" element={<DetailsService />} />
                 <Route path="/aide" element={<Aide />} />
-                <Route path="/services/cni/demande" element={<DemandeCni />} />
+                <Route path="/services/:serviceId/:serviceDemande" element={<Demande />} />
             </Route>
         </Routes>
     </>)

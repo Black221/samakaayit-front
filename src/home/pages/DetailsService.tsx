@@ -4,7 +4,6 @@ import { useState } from "react";
 import { IoArrowBack } from "react-icons/io5";
 import watch from '../../assets/watch.png';
 import Button from "../../components/Button";
-import dummyCni from "../../data/dummycni";
 import audio from '../../assets/audio.png';                 
 import Select from "../../components/Select";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -64,6 +63,14 @@ export default function DetailsService() {
     queryFn: () => getSingleService(serviceId!),
   });
 
+  /**
+   * retrrive last element of the url from link attribute
+   */
+  const getUrlDemand = (url: string) => {
+    const urlArray = url.split('/');
+    return urlArray[urlArray.length - 1]; 
+  }
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   console.log(service?.name)
@@ -109,7 +116,7 @@ export default function DetailsService() {
                 <h1 className="mb-2 text-xl font-bold text-green-800 md:mb-4 md:text-2xl">
                   {service?.name}
                 </h1>
-                <p className="mb-4 text-sm text-gray-600 md:mb-8 md:text-base">{dummyCni?.description}</p>
+                <p className="mb-4 text-sm text-gray-600 md:mb-8 md:text-base">{service?.description}</p>
               </div>
               <div className="flex items-center justify-start gap-3 mt-4 md:justify-center md:gap-5 md:-translate-y-16">
                 <Select onChange={(e) => e} className="w-24 h-8 text-sm md:w-32 md:h-10 md:text-base" label="" options={["Wolof"]} />
@@ -147,7 +154,7 @@ export default function DetailsService() {
 
             <div className="flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
               <Button label="Faire une demande" className="w-full px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out bg-green-600 rounded-full md:px-6 md:py-3 md:text-base md:w-auto hover:bg-green-600/80" 
-              onClick={()=> navigate(`/services/${serviceId}/demande`)}
+              onClick={()=> navigate(`/services/${serviceId}/${getUrlDemand(service?.link || "")}`)}
               />
               <a href="#" className="text-base font-semibold underline md:text-lg text-neutral-900">Prendre rendez-vous</a>
             </div>
