@@ -39,6 +39,13 @@ interface Service {
   link: string;
   institutions: Institution[];
   fields: Field[];
+  whoCanMakeRequest: string;
+  structureInCharge: string;
+  stepsToFollow: string[];
+  wolofVoiceLink: string;
+  youtubeLink: string;
+  competentInstitution: string;
+  serviceHours: string;
 }
 
 export default function DetailsService() {
@@ -106,16 +113,19 @@ export default function DetailsService() {
               </div>
               <div className="flex items-center justify-start gap-3 mt-4 md:justify-center md:gap-5 md:-translate-y-16">
                 <Select onChange={(e) => e} className="w-24 h-8 text-sm md:w-32 md:h-10 md:text-base" label="" options={["Wolof"]} />
-                <img src={audio} alt="audio" className="w-8 h-8 md:w-10 md:h-10"/>
+                  <img src={audio} alt="audio" className="w-8 h-8 md:w-10 md:h-10"/>
               </div>
             </div>
             
             <div className="mb-8 space-y-4">
               {[
-                { title: "Frais de dossier :", content: `${service?.fees} FCFA` },
-                { title: "Délai de traitement :", content: service?.processingTime },
                 { title: "Document délivré :", content: service?.documentName },
-                { title: "Institutions compétentes :", content: service?.institutions.map(inst => inst.name).join(", ") },
+                { title: "Frais de dossier :", content: `${service?.fees} FCFA` },
+                { title: "Qui peut faire la demande ? :", content: service?.whoCanMakeRequest  },
+                { title: "Structure en Charge :", content: service?.structureInCharge  },
+                { title: "Institution compétente :", content: service?.competentInstitution  },
+                { title: "Délai de traitement :", content: service?.processingTime },
+                { title: "Heures de Service :", content: service?.serviceHours },
               ].map((item, index) => (
                 <div key={index} className="flex flex-col gap-2 md:gap-3">
                   <h3 className="text-sm font-semibold text-green-800 md:text-base">{item.title}</h3>
@@ -127,9 +137,11 @@ export default function DetailsService() {
             <div className="p-4 md:p-6 mb-8 md:mb-16 border rounded-2xl border-[#acd8bc] mt-8 md:mt-20">
               <h3 className="mb-3 text-sm font-semibold text-green-800 md:mb-4 md:text-base">Etapes à suivre</h3>
               <ul className="pl-5 ml-2 space-y-2 text-sm list-disc md:ml-3 md:text-base">
-                {dummyCni.steps.map((step, index) => (
-                  <li key={index}>{step}</li>
-                ))}
+                {
+                  service?.stepsToFollow.map((element) => (<>
+                  <li>{element}</li>
+                  </>))
+                }
               </ul>
             </div>
 
@@ -145,7 +157,7 @@ export default function DetailsService() {
             <div className="flex items-center justify-center w-full h-48 mb-4 rounded-lg md:h-64">
               <img src={watch} alt="CNIwatch" className="max-w-full max-h-full" />
             </div>
-            <a href="#" className="font-semibold text-[#00AF41] underline text-center text-sm md:text-base">Regarder le tutoriel</a>
+            <a href={service?.youtubeLink || "#"} className="font-semibold text-[#00AF41] underline text-center text-sm md:text-base">Regarder le tutoriel</a>
           </div>
         </div>
       </section>
