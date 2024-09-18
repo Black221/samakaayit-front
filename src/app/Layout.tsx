@@ -4,6 +4,8 @@ import { useMainState } from "../hooks/useMainState";
 import AppSidebar from "../components/AppSidebar";
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
+import { useModal } from "../hooks/useModal";
+import { ModalContainer } from "../components/ModalComponents";
 
 
 export default function Layout() {
@@ -31,22 +33,25 @@ export default function Layout() {
         }
     }, [largeScreen]);
 
-    // const location = useLocation();
 
-    // const getLinks = (path: string) => {
+    const onCloseModal = (modalRef: any, e: any) => {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            closeModal();
+        }
+    }
 
-    //     let ref = ''
-    //     const tab = path.split('/')
-    //     tab.shift();
-    //     if (tab[tab.length - 1] === '') tab.pop()
-            
-    //     return tab.map((link) => {
-    //         ref = ref + link + '/'
-    //         return { label: link, icon: "", href: "/" + ref}
-    //     })
-    // }
+    const {
+        modalElement,
+        modalOpen,
+        closeModal,
+    } = useModal();
     
     return (<>
+
+        <ModalContainer open={modalOpen} onClose={onCloseModal}>
+            {modalElement}
+        </ModalContainer>
+        
         <div  ref={ref} onClick={handleClick} className="flex relative bg-white">
             <div ref={sidebarRef}>
                 <AppSidebar />

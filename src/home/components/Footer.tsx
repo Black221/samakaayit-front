@@ -6,19 +6,19 @@ import Button from "../../components/Button";
 
 export default function Footer() {
     return (
-        <footer className="px-4 lg:px-[100px] md:px-[100px] h-auto flex flex-col justify-center mb-20 border">
+        <footer className="px-4 lg:px-[100px] md:px-[100px] h-auto flex flex-col justify-center mb-6 relative overflow-hidden">
             <section className="mb-20 lg:mt-10">
-                <div className="bg-[#E31B23] w-full h-3 mt-10 -rotate-6 absolute left-0 z-0"></div>
+                <div className="bg-[#E31B23] w-[calc(100%+20px)] h-3 mt-10 -rotate-6 absolute -left-[10px] z-0"></div>
                 <div className="flex flex-col items-center justify-center space-y-8">
                     <h2 className="text-3xl font-bold text-center lg:text-5xl mt-36">Besoin d'aide</h2>
                     <p className="max-w-md text-center text-gray-500 lg:max-w-2xl">Si vous avez besoin d'une aide quelconque, répondez à notre FAQ et faites nous en part.</p>
                     <Button label="Consulter à la FAQ" className="w-full h-16 text-black bg-yellow-400 rounded-full lg:w-80" />
                 </div>
             </section>
-            <hr className="w-full mb-10 border border-black" />
-            <div className="flex flex-col items-center justify-between gap-5 border-black lg:flex-row lg:gap-0">
+            <hr className="w-full mb-6 border border-black" />
+            <div className="flex flex-col items-center justify-between gap-4 border-black lg:flex-row lg:gap-0">
                 <img src="/Fichier 2.svg" width={150} height={150} alt="" className="mb-5 lg:mb-0" />
-                <div className="flex flex-col items-center justify-center gap-5 text-lg text-center lg:flex-row lg:text-2xl">
+                <div className="flex flex-col items-center justify-center gap-5 text-sm text-center lg:flex-row">
                     <a href="/">Accueil</a>
                     <a href="/about">A propos</a>
                     <a href="/services">Services</a>

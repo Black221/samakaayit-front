@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 // Create an Axios instance
 const serverInstance: AxiosInstance = axios.create({
     // user api
-    baseURL: 'https://jsonplaceholder.typicode.com',
+    baseURL: 'https://gouvhackaton-1.onrender.com',
     timeout: 5000,
 });
 
