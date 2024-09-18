@@ -45,6 +45,7 @@ interface Service {
   youtubeLink: string;
   competentInstitution: string;
   serviceHours: string;
+  
 }
 
 export default function DetailsService() {

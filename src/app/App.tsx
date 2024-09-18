@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import Layout from "./Layout"
+import Layout from "../assets/Layout"
 
 import { useMainState } from "../hooks/useMainState";
 import { useEffect } from "react";
