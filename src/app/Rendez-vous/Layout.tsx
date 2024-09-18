@@ -1,21 +1,30 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Calendar } from "../../components/Calendar";
-import useCalendar from './../../hooks/useCalendar';
+import { useEffect, useState } from "react";
 
 
 
 export default function Layout () {
 
-    const { getYear } = useCalendar()
-    const today = new Date();
-    const thisYear = getYear(today.getFullYear());
-    const thisMonth = thisYear.months[today.getMonth()];
-    const thisWeek = thisMonth.weeks[Math.floor((today.getDate() - 1) / 7)]
 
-    console.log(thisWeek)
-    console.log(thisMonth)
-    console.log(thisYear)
+    const navigate = useNavigate();
+    const [currentFilter, setCurrentFilter] = useState('jour')
 
+
+    const getDisplay = (filter: string) => {
+        switch (filter) {
+            case 'jour': // full date
+                return 'Rendez-vous du jour'
+            case 'semaine':
+                return 'Rendez-vous de la semaine'
+            case 'mois':
+                return 'Rendez-vous du mois'
+            case 'annee':
+                return 'Rendez-vous de l\'année'
+            default:
+                return 'Rendez-vous du jour'
+        }
+    }
 
     const rendezVous = [
         {
@@ -25,6 +34,15 @@ export default function Layout () {
             status: "En attente",
         }
     ]
+
+    const navTo = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setCurrentFilter(e.target.value)
+        navigate(e.target.value)
+    }
+
+    useEffect(() => {
+        setCurrentFilter(location.pathname.split('/').pop() || 'jour')
+    }, [    ])
 
     return (<>
 
@@ -62,11 +80,13 @@ export default function Layout () {
             <div className="flex-1 flex flex-col">
                 <div className="border border-[#DADCE0] p-4 border-l-0 flex justify-between">
                     <div className="flex  gap-4">
-                        <h1 className="text-2xl">Janvier 2024</h1>
+                        <h1 className="text-2xl">
+                            {getDisplay(currentFilter)}
+                        </h1>
 
-                        <select className="border border-[#00AF41] p-1 rounded text-xs">
+                        <select className="border border-[#00AF41] p-1 rounded text-xs" value={currentFilter} onChange={navTo}>
                             <option value="jour">Jour</option>
-                            <option value="semain">Semaine</option>
+                            <option value="semaine">Semaine</option>
                             <option value="mois">Mois</option>
                             <option value="annee">Année</option>
                         </select>

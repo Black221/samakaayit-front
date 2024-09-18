@@ -2,6 +2,8 @@ import moment from 'moment';
 import { useEffect, useState} from "react";
 
 interface Props {
+    month?: number;
+    year?: number;
     getDate: (date: string) => void;
     dateToColor?: string[];
 }
@@ -11,15 +13,17 @@ interface Dic {
     [index : string]: string;
 }
 
-export const Calendar = ({getDate, dateToColor}: Props) => {
+export const Calendar = ({month, year, getDate, dateToColor}: Props) => {
 
     const [selectedDate, setSelectedDate] = useState<string>();
     const [rows, setRows] = useState<any[]>([]);
 
     const today = moment();
     const [currentDate, setCurrentDate] = useState(today);
-    const [monthToRender, setMonthToRender] = useState<number>(today.month());
-    const [yearToRender, setYearToRender] = useState<number>(today.year());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [monthToRender, _setMonthToRender] = useState<number>(month != null ? month : today.month());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [yearToRender, _setYearToRender] = useState<number>(year || today.year());
 
     const englishToFrench:  Dic = {
         Sun: 'Dim',
@@ -29,18 +33,18 @@ export const Calendar = ({getDate, dateToColor}: Props) => {
         Thu: 'Jeu',
         Fri: 'Ven',
         Sat: 'Sam',
-        Jan: 'Janv',
-        Feb: 'Févr',
+        Jan: 'Janvier',
+        Feb: 'Février',
         Mar: 'Mars',
-        Apr: 'Avr',
+        Apr: 'Avril',
         May: 'Mai',
         Jun: 'Juin',
-        Jul: 'Juil',
+        Jul: 'Juillet',
         Aug: 'Août',
-        Sep: 'Sept',
-        Oct: 'Oct',
-        Nov: 'Nov',
-        Dec: 'Déc',
+        Sep: 'Septembre',
+        Oct: 'Octobre',
+        Nov: 'Novembre',
+        Dec: 'Décembre',
     };
 
     function convertToFrench(text: string) {
@@ -51,7 +55,7 @@ export const Calendar = ({getDate, dateToColor}: Props) => {
         return (
             <th key={day}>
                 <div className="w-full flex justify-evenly">
-                    <p className="text-xs font-medium text-center text-gray-800 ">{convertToFrench(day)}</p>
+                    <p className="text-xs font-medium text-center text-gray-800 ">{convertToFrench(day).charAt(0)}</p>
                 </div>
             </th>
         );
@@ -134,58 +138,9 @@ export const Calendar = ({getDate, dateToColor}: Props) => {
 
     return (<>
         <div className="bg-white rounded ">
-            <div className={"md:text-xl font-semibold flex items-center justify-center"}>
-                <button type={"button"} aria-label="calendar backward"
-                        onClick={() => setYearToRender((y) => y - 1)}
-                        className="focus:text-gray-400 mr-3 hover:text-gray-400 text-gray-800 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left"
-                         width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
-                         fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="15 6 9 12 15 18"/>
-                    </svg>
-                </button>
-                {yearToRender}
-                <button type={"button"} aria-label="calendar forward"
-                        onClick={() => setYearToRender((y) => (y + 1))}
-                        className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler  icon-tabler-chevron-right"
-                         width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
-                         fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <polyline points="9 6 15 12 9 18"/>
-                    </svg>
-                </button>
-            </div>
+            
             <div className="mt-4 flex items-center justify-between">
                 <span tabIndex={0} className="focus:outline-none  text-base font-bold  text-gray-800">{convertToFrench(moment.monthsShort(monthToRender))}</span>
-                <div className="flex items-center">
-                    <button type={"button"} aria-label="calendar backward"
-                            onClick={() => setMonthToRender((m) => {
-                                return m > 0 ? m - 1 : 11
-                            })}
-                            className="focus:text-gray-400 hover:text-gray-400 text-gray-800 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left"
-                             width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
-                             fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <polyline points="15 6 9 12 15 18"/>
-                        </svg>
-                    </button>
-                    <button type={"button"} aria-label="calendar forward"
-                            onClick={() => setMonthToRender((m) => {
-                                return m < 11 ? m + 1 : 0
-                            })}
-                            className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 ">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler  icon-tabler-chevron-right"
-                             width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
-                             fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <polyline points="9 6 15 12 9 18"/>
-                        </svg>
-                    </button>
-
-                </div>
             </div>
             <div className="flex items-center justify-between mt-4 overflow-x-auto bg-white text-xs">
                 <table className="w-full">
