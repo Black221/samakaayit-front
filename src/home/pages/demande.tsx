@@ -8,6 +8,7 @@ import { IoArrowBack } from "react-icons/io5";
 import Select from "../../components/Select";
 import audio from "../../assets/audio.png";
 import InputFile from "../../components/InputFile";
+import { Payment } from "../components/Payment";
 
 interface Field {
   uuid: string;
@@ -28,8 +29,9 @@ interface Service {
 
 const DynamicServiceForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<Record<string, string | string[]>>({});
+  const [formData, setFormData] = useState<Record<string, string | string[] | File>>({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
   const { serviceId } = useParams<{ serviceId: string }>();
   const navigate = useNavigate();
 
@@ -43,33 +45,52 @@ const DynamicServiceForm = () => {
     queryFn: () => getService(serviceId!),
   });
 
-  const mutation = useMutation<void, Error, Record<string, string | string[]>>({
-    mutationFn: (newRequest: Record<string, string | string[]>) =>
-      axios.post("https://gouvhackaton-1.onrender.com/requests", newRequest).then(() => {}),
+  const mutation = useMutation<void, Error, FormData>({
+    mutationFn: (formData: FormData) =>
+      axios.post("https://gouvhackaton-1.onrender.com/requests", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then(() => {}),
   });
 
-  const handleInputChange = (fieldName: string, value: string | string[]) => {
+  const handleInputChange = (fieldName: string, value: string | string[] | File) => {
     setFormData((prevData) => ({
       ...prevData,
       [fieldName]: value,
     }));
   };
 
+  const handlePaymentMethodSelect = (method: string) => {
+    setPaymentMethod(method);
+    handleInputChange("paymentMethod", method); // Store payment method in formData
+  };
+
   const sendRequest = () => {
-    // Call mutation to send form data to the server
-    mutation.mutate(formData, {
+    const formDataToSend = new FormData();
+    
+    Object.entries(formData).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach(item => formDataToSend.append(key, item));
+      } else if (value instanceof File) {
+        formDataToSend.append(key, value, value.name);
+      } else {
+        formDataToSend.append(key, value as string);
+      }
+    });
+
+    mutation.mutate(formDataToSend, {
       onSuccess: () => {
-        // Handle successful submission, like redirecting the user or showing a message
         alert("Request submitted successfully!");
         navigate("/");
       },
       onError: (error) => {
-        // Handle error, e.g., show an error message
         console.error("Error submitting request:", error);
         alert("There was an error submitting your request.");
       },
     });
   };
+
   
   const handleNextStep = () => {
     if (currentStep < 3){
@@ -147,16 +168,21 @@ const DynamicServiceForm = () => {
             ))}
           </div>
         );
-      case 'file':
-        return (
-          <InputFile
-            key={field.uuid}
-            type="file"
-            onChange={(e) => handleInputChange(field.name, e)}
-            label={field.name}
-            className="w-full px-5 py-3 border border-gray-400 rounded-xl"
-          />
-        );
+        case 'file':
+          return (
+            <InputFile
+              key={field.uuid}
+              type="file"
+              onChange={(e) => {
+                const file = e ? e[0] : null;
+                if (file) {
+                  handleInputChange(field.name, file);
+                }
+              }}
+              label={field.name}
+              className="w-full px-5 py-3 border border-gray-400 rounded-xl"
+            />
+          );
       case 'textarea':
         return (
           <div key={field.uuid} className="w-full">
@@ -315,14 +341,20 @@ const DynamicServiceForm = () => {
             )}
 
             {currentStep === 3 && (
-              <div>
-                <h2 className="mb-4 text-xl font-bold">Récapitulatif</h2>
-                {Object.entries(formData).map(([key, value]) => (
-                  <div key={key} className="mb-2">
-                    <strong>{key}:</strong> {Array.isArray(value) ? value.join(", ") : value}
-                  </div>
-                ))}
-              </div>
+              <>
+                <div>
+                  <h2 className="mb-4 text-xl font-bold">Récapitulatif</h2>
+                  {Object.entries(formData).map(([key, value]) => (
+                    <div key={key} className="mb-2">
+                      <strong>{key}:</strong> {Array.isArray(value) ? value.join(", ") : value instanceof File ? value.name : value}
+                    </div>
+                  ))}
+                </div>
+                <Payment          onSelect={handlePaymentMethodSelect}
+                selectedMethod={paymentMethod}
+              />
+              
+              </>
             )}
           </form>
 
