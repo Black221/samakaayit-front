@@ -1,11 +1,10 @@
-
-export const validateIdCardNumber = (idCardNumber: string): string | null => {
-    if (!idCardNumber) {
-        return "Le numéro de carte d'identité est requis.";
+export const validatePhoneNumber = (phoneNumber: string): string | null => {
+    if (!phoneNumber) {
+        return "Le numéro de téléphone est requis.";
     }
-    const idCardRegex = /^[12][0-9]{11}$/;
-    if (!idCardRegex.test(idCardNumber)) {
-        return "Le numéro de la carte d'identité doit comporter 12 chiffres et commencer par 1 ou 2.";
+    const numberRegex = /^(77|78|70|76|75)[0-9]{7}$/; // Numéro de téléphone sénégalais
+    if (!numberRegex.test(phoneNumber)) {
+        return "Le numéro de téléphone doit être un numéro sénégalais valide.";
     }
     return null;
 };
