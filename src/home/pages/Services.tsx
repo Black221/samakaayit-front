@@ -51,8 +51,8 @@ export default function Services() {
 
   const { data: services, error, isLoading } = useQuery<Service[], Error>({ queryKey: ['services'], queryFn: fetchServices });
   
-  const categories = useMemo<string[]>(() => {
-    const allCategories = services?.map((service) => service.category) || [];
+  const categories = useMemo<string[]>(():any[] => {
+    const allCategories = services?.map((service: any) => service.category) || [];
     return ["Tous les services", ...new Set(allCategories)];
   }, [services]);
 
@@ -61,7 +61,7 @@ export default function Services() {
     if (selectedCategory === "Tous les services") {
       return services;
     }
-    return services.filter((service) => service.category === selectedCategory);
+    return services.filter((service: any) => service.category === selectedCategory);
   }, [services, selectedCategory]);
 
   if (isLoading) return <div>Loading...</div>;
@@ -123,7 +123,7 @@ export default function Services() {
           <div className="lg:w-3/4">
             <h3 className="mb-6 text-2xl font-semibold">Tous les services</h3>
             <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:w-4/5">
-              {currentServices.map((service) => (
+              {currentServices.map((service: any) => (
                 <div
                   key={service._id}
                   className="p-5 bg-white rounded-[20px] border border-[#085F28] flex justify-between flex-col gap-3"

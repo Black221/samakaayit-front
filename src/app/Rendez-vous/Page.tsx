@@ -13,10 +13,10 @@ export default function Page() {
             <Route path="/" element={<Layout />}>
 
                 <Route path="/" element={<ParJour/>} />
-                <Route path="/par-jour" element={<ParJour/>} />
-                <Route path="/par-semaine" element={<ParSemaine/>} />
-                <Route path="/par-mois" element={<ParMois/>} />
-                <Route path="/par-annee" element={<ParAnnee/>} />
+                <Route path="/jour" element={<ParJour/>} />
+                <Route path="/semaine" element={<ParSemaine/>} />
+                <Route path="/mois" element={<ParMois/>} />
+                <Route path="/annee" element={<ParAnnee/>} />
 
             </Route>
         </Routes>
