@@ -49,7 +49,7 @@ export default function Login() {
         setErrors(validationErrors);
 
         if (Object.values(validationErrors).every(error => !error)) {
-            login("+33" + formData.phoneNumber, formData.password)
+            login("+221" + formData.phoneNumber, formData.password)
 
         }
     };
