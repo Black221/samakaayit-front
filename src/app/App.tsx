@@ -10,6 +10,7 @@ import Dashboard from "./Dashboard";
 import RendezVous from "./Rendez-vous/Page";
 import Demande from "./Demande/Page";
 import Notification from "./Notification/Page";
+import Document from "./Document/Page";
 import Parametre from "./Parametre/Page";
 import { useAuth } from "../hooks/useAuth";
 
@@ -65,6 +66,7 @@ function App() {
 				<Route path="/" element={<Dashboard />} />
                 <Route path="/rendez-vous/*" element={<RendezVous />} />
                 <Route path="/demande/*" element={<Demande />} />
+                <Route path="/document/*" element={<Document />} />
                 <Route path="/notification/*" element={<Notification />} />
                 <Route path="/parametres/*" element={<Parametre />} />
 			</Route>

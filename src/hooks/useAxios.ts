@@ -7,30 +7,30 @@ import { useCallback } from 'react';
 interface Client {
     get: (
         url: string,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<any>,
         options?: { staleTime?: number; retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
     post: (
         url: string,
         data: any,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<any>,
         options?: { retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
     put: (
         url: string,
         data: any,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<any>,
         options?: { retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
     patch: (
         url: string,
         data: any,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<any>,
         options?: { retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
     delete: (
         url: string,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<any>,
         options?: { retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
 }
@@ -138,7 +138,7 @@ const useAxios = (
         configObj: {
             method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
             url: string;
-            requestConfig?: AxiosRequestConfig;
+            requestConfig?: AxiosRequestConfig<any>;
         },
         { staleTime = 30000, retryConfig = defaultRetryConfig }: { staleTime?: number; retryConfig?: RetryConfig }
     ) => {
@@ -225,25 +225,30 @@ const useAxios = (
 
     // Client object with methods for all HTTP requests
     const client = {
-        get: (url: string, config: AxiosRequestConfig = {}, options: { staleTime?: number; retryConfig?: RetryConfig } = {}) => {
+        get: (url: string, config: AxiosRequestConfig<any> = {}, options: { staleTime?: number; retryConfig?: RetryConfig } = {}) => {
             return axiosFetch({ method: 'GET', url, requestConfig: config }, options);
         },
-        post: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+        post: (url: string, data: any, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
         }) => {
-            return axiosFetch({ method: 'POST', url, requestConfig: { ...config, data } }, options);
+            return axiosFetch({ 
+                method: 'POST', 
+                url, 
+                requestConfig: { ...config, data, headers: {...config.headers} } },
+                options
+            );
         },
-        put: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+        put: (url: string, data: any, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
         }) => {
             return axiosFetch({ method: 'PUT', url, requestConfig: { ...config, data } }, options);
         },
-        patch: (url: string, data: any, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+        patch: (url: string, data: any, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
         }) => {
             return axiosFetch({ method: 'PATCH', url, requestConfig: { ...config, data } }, options);
         },
-        delete: (url: string, config: AxiosRequestConfig = {}, options: { retryConfig?: RetryConfig } = {
+        delete: (url: string, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
         }) => {
             return axiosFetch({ method: 'DELETE', url, requestConfig: config }, options);

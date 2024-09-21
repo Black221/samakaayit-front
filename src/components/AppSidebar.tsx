@@ -19,6 +19,11 @@ export default function AppSidebar () {
             route: '/app'
         },
         {
+            name: 'Mes documents',
+            icon: demandeSvg,
+            route: '/app/document'
+        },
+        {
             name: 'Demande',
             icon: demandeSvg,
             route: '/app/demande'

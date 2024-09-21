@@ -1,49 +1,73 @@
-import { useState, ReactNode } from "react";
+import { useState, useRef, ChangeEvent } from "react";
 
 interface Props {
-    id?: string;
-    label: string;
-    type?: string;
-    icon?: ReactNode;
-    placeholder?: string;
-    onChange: (value: string) => void;
-    className?: string;
-    textAlign?: string; 
+    previews: boolean;
+    accept: string;
+    onChoose: (file: File) => void;
 }
 
-export default function InputFile(
-    { id, label, onChange, type, icon, placeholder, className, textAlign = "text-normal" }: Props
-) {
+export default function InputFile({
+    accept,
+    previews,
+    onChoose,
+}: Props ) {
 
-    const [value, setValue] = useState<string | number>("");
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+  
+    const updateImage = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files[0]) {
+          const file = event.target.files[0];
+          setImageFile(file);
+          onChoose(file);
+        }
+    };
 
-    const getValue = (value: string) => {
-        setValue(value);
-        onChange(value);
-    }
+    return (<>
 
-    return (
-        <div className={`w-full flex flex-col space-y-1 ${className}`}>
-            <label htmlFor={id}>{label}</label>
-            <div className="relative">
-                {icon && (
-                    <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                        {icon}
+       <div className="flex gap-4">
+            <div className="flex items-center justify-center w-full">
+                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <p className="mb-2 text-lg text-primary-800 text-center">
+                            {
+                                imageFile 
+                                ? (<>
+                                    <p className="mb-2">
+                                        Nom: {imageFile.name}
+                                    </p>
+                                    <p className="mb-2">
+                                        Taille: {Math.round(imageFile.size / 1024)} Ko
+                                    </p>
+                                </>)
+                                : "Aucun fichier sélectionné"
+                            }
+                        </p>
+                        <svg className="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Glissez et déposez</span> votre fichier ici</p>
+                        <p className="text-xs text-gray-500">Pdf (max 10Mo)</p>
                     </div>
-                )}
-                <input
-                    type={type}
-                    id={id}
-                    multiple
-                    placeholder={placeholder}
-                    className={`border border-none bg-[#F2F2F2]  rounded-md  ${textAlign} w-full outline-none`} 
-                    value={value}
-                    onChange={(e) => getValue(e.target.value)}
-                    autoComplete={
-                        type === "password" ? "current-password" : "off"
-                    }
-                />
+                    <input 
+                        id="dropzone-file" 
+                        type="file" 
+                        className="hidden" 
+                        ref={fileInputRef}
+                        accept={accept}
+                        onChange={updateImage}
+                    />
+                </label>
             </div>
-        </div>
-    )
+            {/* preview */}
+            {previews && <div>
+                {imageFile && <img
+                    src={URL.createObjectURL(imageFile)}
+                    alt="Uploaded"
+                    className="w-32 h-32 border border-gray-300 rounded-lg"
+                />}
+            </div>}
+       </div>
+                
+    </>)
 }

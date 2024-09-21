@@ -99,7 +99,7 @@ export default function NouvelleDemande () {
             service: selectedService?._id,
             institution: selectedInstitution?._id,
             textResponses: formulaireData,
-            documentResponses: documents,
+            // documentResponses: documents,
             commentByCitoyen: commentByCitoyen,
             paymentMethods: paymentMethods
         }
