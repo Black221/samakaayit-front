@@ -13,7 +13,6 @@ export default function Page() {
             <Route path="/" element={<Layout />}>
 
                 <Route path="/" element={<List />} />
-                <Route path="/liste/:type" element={<List />} />
                 <Route path="/:id" element={<Details />} />
                 <Route path="/liste/:id" element={<Details />} />
 

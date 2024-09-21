@@ -20,16 +20,14 @@ export default function Formulaire ({
     } = useAuth();
 
     const handleSubmit = () => {
-        // get binary data from file
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(document);
 
+        console.log(document);
         const data: IDocument = {
             name,
-            originalname: document.name,
-            mimetype: document.type,
+            originalname: document.originalname,
+            mimetype: document.mimetype,
             size: document.size,
-            buffer: document,
+            buffer: document.base64,
             uploadedBy: getUser()._id as string
         }
         onSubmit(data);
@@ -59,7 +57,9 @@ export default function Formulaire ({
         </ModalBody>
         <ModalFooter>
             <button onClick={close} className="text-primary-700 px-4 py-2 rounded-md hover:bg-primary-700 hover:text-white">Annuler</button>
-            <button disabled={!document} onClick={handleSubmit} type="submit" className="bg-primary-700 text-white px-4 py-2 rounded-md">Ajouter</button>
+            <button disabled={
+                !document || !name || document.size > (1024 * 1024) / 4
+            } onClick={handleSubmit} type="submit" className="bg-primary-700 text-white px-4 py-2 rounded-md">Ajouter</button>
         </ModalFooter>
     </>)
 }

@@ -31,9 +31,10 @@ export const useDocument = () => {
 
     const createDocument = async (documentData: IDocument) => {
         await client.post('/documents', documentData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+           headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+           }
         }, { retryConfig: { retries: 3, delay: 1000 } });
     };
 

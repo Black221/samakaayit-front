@@ -1,9 +1,10 @@
 import { useState, useRef, ChangeEvent } from "react";
+import { IDocument } from "../models/Document";
 
 interface Props {
     previews: boolean;
     accept: string;
-    onChoose: (file: File) => void;
+    onChoose: (file: any) => void;
 }
 
 export default function InputFile({
@@ -14,12 +15,31 @@ export default function InputFile({
 
     const [imageFile, setImageFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const convertToBase64 = (file: any) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file); // Converts the file to a Base64 string
+        });
+    };
   
-    const updateImage = (event: ChangeEvent<HTMLInputElement>) => {
+    const updateImage =  async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
-          const file = event.target.files[0];
-          setImageFile(file);
-          onChoose(file);
+            const file = event.target.files[0];
+            const base64File = await convertToBase64(file);
+            setImageFile(file);
+            
+            const d: Partial<IDocument> = {
+                originalname: file.name,
+                mimetype: file.type,
+                size: file.size,
+            }
+            onChoose({
+                ...d,
+                base64: base64File
+            });
         }
     };
 
@@ -38,6 +58,11 @@ export default function InputFile({
                                     </p>
                                     <p className="mb-2">
                                         Taille: {Math.round(imageFile.size / 1024)} Ko
+                                        <p className="text-xs text-red-500">
+                                            {
+                                                imageFile.size > (1024 * 1024) / 4 && "La taille du fichier est supérieure à 250Ko"
+                                            }
+                                        </p>
                                     </p>
                                 </>)
                                 : "Aucun fichier sélectionné"
