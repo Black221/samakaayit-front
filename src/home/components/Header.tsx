@@ -11,11 +11,11 @@ export default function Header({ ref, top, toggle }: IHeader) {
 
 
     return (<>
-        <header ref={ref} className={`fixed w-screen ${top < 0 ? "-top-[92px]" : "top-0"} z-[1000]`} style={{
+        <header ref={ref} className={`fixed w-screen ${top < 0 ? "-top-[100px]" : "top-0"} z-[1000]`} style={{
             transition: "top 0.6s",
             backgroundColor: "#F2F2F2"
         }}>
-            <nav className="w-full mt-10 bg-[#F2F2F2] border-gray-200 px-4 lg:px-[100px] py-2.5">
+            <nav className="w-full  bg-[#F2F2F2] border-gray-200 px-4 lg:px-[100px] py-2.5">
                 <div className="flex flex-wrap items-center justify-between mx-auto">
                     <Logo />
                     <Menu toggle={toggle} />
