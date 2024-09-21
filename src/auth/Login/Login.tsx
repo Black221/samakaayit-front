@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { CiLock } from "react-icons/ci";
 import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
 import { BiUserPin } from "react-icons/bi";
+import {useAuthService} from "./../authService";
 import {
-    validateIdCardNumber,
+    validatePhoneNumber,
     validatePassword,
 } from '../Validations/ValidateLogin';
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface FormErrors {
-    idCardNumber?: string | null;
+    phoneNumber?: string | null;
     password?: string | null;
 }
 
 export default function Login() {
     const [formData, setFormData] = useState({
-        idCardNumber: "",
+        phoneNumber: "",
         password: "",
     });
 
-    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
+
+    const auth = useAuth()
+
+    const { login, data, error, loading } = useAuthService();
+
     const [errors, setErrors] = useState<FormErrors>({});
 
     const handleChange = (name: string) => (value: string) => {
@@ -34,17 +42,27 @@ export default function Login() {
         e.preventDefault();
 
         const validationErrors: FormErrors = {
-            idCardNumber: validateIdCardNumber(formData.idCardNumber),
+            phoneNumber: validatePhoneNumber(formData.phoneNumber),
             password: validatePassword(formData.password),
         };
 
         setErrors(validationErrors);
 
         if (Object.values(validationErrors).every(error => !error)) {
-            setLoading(true);
-            console.log("Form Data:", formData);
+            login("+33" + formData.phoneNumber, formData.password)
+
         }
     };
+
+    useEffect(() => {
+        if (data) {
+            console.log(data);
+            auth.login(data);
+            navigate('/app')
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     return (
         <div className="lg:ml-20 mx-5 mt-16 ">
@@ -60,17 +78,18 @@ export default function Login() {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5 justify-center items-center w-full max-w-4xl px-4 md:px-8">
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
                     <div className="flex flex-col gap-5 md:w-1/2">
                         <div className="border-b-2 border-black pb-1">
                             <Input
-                                label="Numéro de la carte nationale d'identité"
+                                label="Numéro de téléphone"
                                 type="text"
-                                placeholder="CNI"
-                                onChange={handleChange('idCardNumber')}
+                                placeholder="Numéro de téléphone"
+                                onChange={handleChange('phoneNumber')}
                                 icon={<BiUserPin size={20} />}
                             />
                         </div>
-                        {errors.idCardNumber && <p className="text-red-500 text-sm">{errors.idCardNumber}</p>}
+                        {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
                         <div className="border-b-2 border-black pb-1">
                             <Input
                                 label="Mot de passe"
