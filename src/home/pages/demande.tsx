@@ -63,7 +63,7 @@ const DynamicServiceForm = () => {
 
   const handlePaymentMethodSelect = (method: string) => {
     setPaymentMethod(method);
-    handleInputChange("paymentMethod", method); // Store payment method in formData
+    handleInputChange("paymentMethod", method); 
   };
 
   const sendRequest = () => {
