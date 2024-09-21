@@ -226,7 +226,7 @@ const DynamicServiceForm = () => {
             de services ou recherchez le et trouvez rapidement ce dont vous avez
             besoin.
           </p>
-          <div className="flex items-center w-full max-w-xs gap-2 px-4 py-2 bg-white rounded-full lg:max-w-md">
+          <div className="flex items-center w-full max-w-xs gap-2 px-6 py-4 bg-white rounded-full lg:max-w-md">
             <InputForm
               label=""
               placeholder="Rechercher"
