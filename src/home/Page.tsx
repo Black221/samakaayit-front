@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Services from "./pages/services/Page";
 import Aide from "./pages/Aide";
 import DetailsService from "./pages/DetailsService";
-import Demande from "./pages/cni/demande";
+import Demande from "./pages/demande";
 
 
 export default function Page() {
