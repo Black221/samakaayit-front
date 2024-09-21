@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { CiLock } from "react-icons/ci";
 import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
 import { BiUserPin } from "react-icons/bi";
+import {useAuthService} from "./../authService";
 import {
     validatePhoneNumber,
     validatePassword,
 } from '../Validations/ValidateLogin';
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface FormErrors {
     phoneNumber?: string | null;
@@ -20,7 +23,12 @@ export default function Login() {
         password: "",
     });
 
-    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate()
+
+    const auth = useAuth()
+
+    const { login, data, error, loading } = useAuthService();
+
     const [errors, setErrors] = useState<FormErrors>({});
 
     const handleChange = (name: string) => (value: string) => {
@@ -41,10 +49,19 @@ export default function Login() {
         setErrors(validationErrors);
 
         if (Object.values(validationErrors).every(error => !error)) {
-            setLoading(true);
-            console.log("Form Data:", formData);
+            login("+33" + formData.phoneNumber, formData.password)
+
         }
     };
+
+    useEffect(() => {
+        if (data) {
+            console.log(data?.citoyen);
+            auth.login(data?.citoyen);
+            navigate('/app')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     return (
         <div className="lg:ml-20 mx-5 mt-16 ">
@@ -60,6 +77,7 @@ export default function Login() {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5 justify-center items-center w-full max-w-4xl px-4 md:px-8">
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
                     <div className="flex flex-col gap-5 md:w-1/2">
                         <div className="border-b-2 border-black pb-1">
                             <Input

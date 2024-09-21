@@ -20,7 +20,10 @@ export default function Formulaire ({
     } = useAuth();
 
     const handleSubmit = () => {
-        
+        // get binary data from file
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(document);
+
         const data: IDocument = {
             name,
             originalname: document.name,
@@ -30,7 +33,6 @@ export default function Formulaire ({
             uploadedBy: getUser()._id as string
         }
         onSubmit(data);
-        close();
     }
 
     return (<>

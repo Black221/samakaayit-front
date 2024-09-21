@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 interface Client {
     get: (
         url: string,
-        config?: AxiosRequestConfig<any>,
+        config?: AxiosRequestConfig,
         options?: { staleTime?: number; retryConfig?: { retries: number; delay: number } }
     ) => Promise<void>;
     post: (
@@ -73,7 +73,7 @@ const dbPromise = openDB<CacheDB>('cache-db', 1, {
 });
 
 const useAxios = (
-    axiosInstance: AxiosInstance | any,
+    axiosInstance: AxiosInstance,
     defaultRetryConfig: RetryConfig = { retries: 3, delay: 1000 }
 ): UseAxiosReturn => {
     const [response, setResponse] = useState<any>(null);
@@ -182,13 +182,27 @@ const useAxios = (
                 return;
             }
         }
-    
+
+        const sendRequest = async () => {
+            switch (method) {
+                case 'GET':
+                    return axiosInstance.get(encodedUrl, { ...requestConfig, signal: ctrl.signal });
+                case 'POST':
+                    return axiosInstance.post(encodedUrl, requestConfig.data, { ...requestConfig, signal: ctrl.signal});
+                case 'PUT':
+                    return axiosInstance.put(encodedUrl, requestConfig.data, { ...requestConfig, signal: ctrl.signal });
+                case 'PATCH':
+                    return axiosInstance.patch(encodedUrl, requestConfig.data, { ...requestConfig, signal: ctrl.signal });
+                case 'DELETE':
+                    return axiosInstance.delete(encodedUrl, { ...requestConfig, signal: ctrl.signal });
+                default:
+                    throw new Error('Invalid HTTP method');
+            }
+        }
+        
         // Function to fetch data (used in retry)
         const fetchData = async () => {
-            const res: AxiosResponse<any> = await axiosInstance[method.toLowerCase()](encodedUrl, {
-                signal: ctrl.signal,
-                ...requestConfig,
-            });
+            const res: AxiosResponse<any> = await sendRequest();
     
             // Cache data only for GET requests
             if (method === 'GET') {
@@ -231,12 +245,7 @@ const useAxios = (
         post: (url: string, data: any, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
         }) => {
-            return axiosFetch({ 
-                method: 'POST', 
-                url, 
-                requestConfig: { ...config, data, headers: {...config.headers} } },
-                options
-            );
+            return axiosFetch({ method: 'POST', url, requestConfig: { ...config, data } }, options);
         },
         put: (url: string, data: any, config: AxiosRequestConfig<any> = {}, options: { retryConfig?: RetryConfig } = {
             retryConfig: { retries: 1, delay: 10000 }
