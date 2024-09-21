@@ -14,4 +14,6 @@ const dummyCni = {
   ]
 };
 
-export default dummyCni;
+
+
+export  default dummyCni ;

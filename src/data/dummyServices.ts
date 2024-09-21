@@ -119,4 +119,5 @@ const dummyCategories = [
     },
 ];
 
+
 export default { dummyServices, dummyCategories };

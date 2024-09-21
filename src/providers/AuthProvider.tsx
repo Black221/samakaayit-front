@@ -1,10 +1,10 @@
 import  {createContext, useState} from "react";
-import { UserModel } from "../types/models";
+import { ICitoyen } from "../models/Citoyen";
 
 interface AuthContext {
-    login: (data: UserModel) => void;
+    login: (data: ICitoyen) => void;
     logout: () => void;
-    getUser: () => UserModel;
+    getUser: () => ICitoyen;
     getRole: () => string;
     isLogged: () => boolean;
 }
@@ -17,20 +17,20 @@ interface AuthContextProviderProps {
 
 export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
-    const [user, setUser] = useState<UserModel>({} as UserModel);
+    const [user, setUser] = useState<ICitoyen>({} as ICitoyen);
 
-    const login = (data: UserModel) => {
+    const login = (data: ICitoyen) => {
         setUser(data);
         localStorage.setItem('user', JSON.stringify(data));
     }
 
     const logout = () => {
-        setUser({} as UserModel);
+        setUser({} as ICitoyen);
         localStorage.removeItem('user');
     }
 
     const getUser = () => {
-        if (user.id) {
+        if (user._id) {
             return user;
         } else {
             const user = localStorage.getItem('user');
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
             }
         }
 
-        return {} as UserModel;
+        return {} as ICitoyen;
     }
 
     const getRole = () => {
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     }
 
     const isLogged = () => {
-        return !!getUser().id;
+        return !!getUser()._id;
     }
 
     return (
