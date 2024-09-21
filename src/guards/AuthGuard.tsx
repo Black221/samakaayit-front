@@ -7,7 +7,7 @@ export default function AuthGuard() {
 
     const { isLogged } = useAuth();
 
-    if (1 == 1 || isLogged()) {
+    if (isLogged()) {
         return <Outlet />
     }
 
