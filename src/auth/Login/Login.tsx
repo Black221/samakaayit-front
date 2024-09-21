@@ -5,18 +5,18 @@ import Button from "../../components/Button";
 import { BiLoaderCircle } from "react-icons/bi";
 import { BiUserPin } from "react-icons/bi";
 import {
-    validateIdCardNumber,
+    validatePhoneNumber,
     validatePassword,
 } from '../Validations/ValidateLogin';
 
 interface FormErrors {
-    idCardNumber?: string | null;
+    phoneNumber?: string | null;
     password?: string | null;
 }
 
 export default function Login() {
     const [formData, setFormData] = useState({
-        idCardNumber: "",
+        phoneNumber: "",
         password: "",
     });
 
@@ -34,7 +34,7 @@ export default function Login() {
         e.preventDefault();
 
         const validationErrors: FormErrors = {
-            idCardNumber: validateIdCardNumber(formData.idCardNumber),
+            phoneNumber: validatePhoneNumber(formData.phoneNumber),
             password: validatePassword(formData.password),
         };
 
@@ -63,14 +63,14 @@ export default function Login() {
                     <div className="flex flex-col gap-5 md:w-1/2">
                         <div className="border-b-2 border-black pb-1">
                             <Input
-                                label="Numéro de la carte nationale d'identité"
+                                label="Numéro de téléphone"
                                 type="text"
-                                placeholder="CNI"
-                                onChange={handleChange('idCardNumber')}
+                                placeholder="Numéro de téléphone"
+                                onChange={handleChange('phoneNumber')}
                                 icon={<BiUserPin size={20} />}
                             />
                         </div>
-                        {errors.idCardNumber && <p className="text-red-500 text-sm">{errors.idCardNumber}</p>}
+                        {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
                         <div className="border-b-2 border-black pb-1">
                             <Input
                                 label="Mot de passe"
