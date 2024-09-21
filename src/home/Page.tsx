@@ -17,6 +17,7 @@ export default function Page() {
                 <Route path="/about" element={<About />} />
                 <Route path="/services/*" element={<Services />} />
                 <Route path="/aide" element={<Aide />} />
+                <Route path="/services/:serviceId" element={<DetailsService />} />
                 <Route path="/services/:serviceId/:serviceDemande" element={<Demande />} /> 
             </Route>
         </Routes>
