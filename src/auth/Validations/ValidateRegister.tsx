@@ -32,9 +32,9 @@ export const validateName = (name: string): string | null => {
     if (name.length < 2) {
         return "Le nom de famille doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+$/;
     if (!nameRegex.test(name)) {
-        return "Le nom de famille ne peut contenir que des lettres.";
+        return "Le nom de famille ne peut contenir que des lettres et des accents.";
     }
     return null;
 };
@@ -47,9 +47,9 @@ export const validateSurname = (surname: string): string | null => {
     if (surname.length < 2) {
         return "Le prénom doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+(?:\s[a-zA-ZÀ-ÿ]+)*$/;
     if (!nameRegex.test(surname)) {
-        return "Le prénom ne peut contenir que des lettres, et peut inclure des espaces pour les prénoms composés.";
+        return "Le prénom ne peut contenir que des lettres et des accents, et peut inclure des espaces pour les prénoms composés.";
     }
     return null;
 };
@@ -93,9 +93,11 @@ export const validatePassword = (password: string): string | null => {
     if (!password) {
         return "Le mot de passe est requis.";
     }
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // Modifier le regex pour inclure au moins une lettre, un chiffre et un caractère spécial
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    
     if (!passwordRegex.test(password)) {
-        return "Le mot de passe doit comporter au moins 8 caractères, incluant au moins une lettre et un chiffre.";
+        return "Le mot de passe doit comporter au moins 8 caractères, incluant au moins une lettre, un chiffre et un caractère spécial.";
     }
     return null;
 };
@@ -119,9 +121,9 @@ export const validateFathersName = (fathersName: string): string | null => {
     if (fathersName.length < 2) {
         return "Le nom de famille doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+$/;
     if (!nameRegex.test(fathersName)) {
-        return "Le nom de famille ne peut contenir que des lettres.";
+        return "Le nom de famille ne peut contenir que des lettres et des accents.";
     }
     return null;
 };
@@ -134,7 +136,7 @@ export const validateFathersSurname = (fathersSurname: string): string | null =>
     if (fathersSurname.length < 2) {
         return "Le prénom doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+(?:\s[a-zA-ZÀ-ÿ]+)*$/;
     if (!nameRegex.test(fathersSurname)) {
         return "Le prénom ne peut contenir que des lettres, et peut inclure des espaces pour les prénoms composés.";
     }
@@ -149,7 +151,7 @@ export const validateMothersName = (mothersName: string): string | null => {
     if (mothersName.length < 2) {
         return "Le nom de famille doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+$/;
     if (!nameRegex.test(mothersName)) {
         return "Le nom de famille ne peut contenir que des lettres.";
     }
@@ -164,7 +166,7 @@ export const validateMothersSurname = (mothersSurname: string): string | null =>
     if (mothersSurname.length < 2) {
         return "Le prénom doit comporter au moins 2 caractères.";
     }
-    const nameRegex = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+    const nameRegex = /^[a-zA-ZÀ-ÿ]+(?:\s[a-zA-ZÀ-ÿ]+)*$/;
     if (!nameRegex.test(mothersSurname)) {
         return "Le prénom ne peut contenir que des lettres, et peut inclure des espaces pour les prénoms composés.";
     }
