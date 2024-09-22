@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import { CiUser, CiLock, CiHome } from "react-icons/ci";
 import { MdPeopleOutline } from "react-icons/md";
@@ -10,6 +10,7 @@ import { BsFillCalendar2CheckFill } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { MaritalStatus } from "./MaritalStatusEnum";
+import { useRegisterService } from "../registerService";
 import ReCAPTCHA from "react-google-recaptcha";
 import {
     validateCNI,
@@ -75,12 +76,14 @@ export default function Register() {
         birthDepartment: "",
     });
 
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<FormErrors>({});
     const [captchaValidated, setCaptchaValidated] = useState(false);
     const [captchaError, setCaptchaError] = useState<string | null>(null);
 
     const navigate = useNavigate();
+
+    const { register, data, loading, error } = useRegisterService();
 
     const handleChange = (name: string) => (value: string) => {
         setFormData(prevState => ({
@@ -115,6 +118,9 @@ export default function Register() {
 
         setErrors(validationErrors);
 
+        let phoneNumber = formData.phoneNumber;
+        phoneNumber = `+221${phoneNumber.replace(/^(\+221)?/, '')}`;
+
         // Vérifier s'il y a des erreurs dans les champs ou si le captcha est non validé
         if (!captchaValidated) {
             setCaptchaError("Veuillez compléter le reCAPTCHA.");
@@ -123,27 +129,10 @@ export default function Register() {
         }
 
         if (Object.values(validationErrors).every(error => !error) && captchaValidated) {
-            // Si pas d'erreurs, on peut soumettre le formulaire
-            setLoading(true);
             try {
-                // const response = await fetch('/api/register', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify(formData),
-                // });
-
-                // if (response.ok) {
-                    navigate('/connexion-choisir-methode', { state: { formData } });
-                // } else {
-                //     const errorData = await response.json();
-                //     console.error('Erreur du serveur:', errorData);
-                // }
+                register({ ...formData, phoneNumber });
             } catch (error) {
                 console.error('Erreur réseau:', error);
-            } finally {
-                setLoading(false);
             }
         }
     };
@@ -156,6 +145,14 @@ export default function Register() {
             setCaptchaValidated(false);
         }
     };
+
+    useEffect(() => {
+        if (data) {
+            console.log(data);
+            navigate('/connexion');
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     return (
         <div className="lg:ml-20 mx-5 mt-16">
@@ -171,6 +168,7 @@ export default function Register() {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-10 justify-center items-center w-full max-w-7xl px-4 md:px-8">
+                    {error && <p className="text-red-500 text-sm">{error}</p>}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
                         {/* Colonne 1 */}
                         <div className="flex flex-col gap-5">
