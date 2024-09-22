@@ -13,19 +13,37 @@ export default function Document({
     previous: () => void;
 }) {
 
+    // const handleSubmit = (e: any) => {
+    //     e.preventDefault();
+    //     const data: any = {};
+
+    //     for (let i = 0; i < service.fields.length; i++) {
+    //         const field = service.fields[i];
+    //         if (field.type.typeName.toLowerCase() === 'file') {
+    //             data[normalizeString(field.name)] = e.target[normalizeString(field.name)].files[0];
+    //         }
+    //     }
+
+    //     handleChange(data);
+    // }
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const data: any = {};
-
+    
+        // Collect files for each document field
         for (let i = 0; i < service.fields.length; i++) {
             const field = service.fields[i];
             if (field.type.typeName.toLowerCase() === 'file') {
-                data[normalizeString(field.name)] = e.target[normalizeString(field.name)].files[0];
+                const fileInput = e.target[normalizeString(field.name)].files[0];
+                if (fileInput) {
+                    data[normalizeString(field.name)] = fileInput;
+                }
             }
         }
-
-        handleChange(data);
-    }
+    
+        handleChange(data); // Pass all selected documents back to the parent
+    };
+    
     const validateForm = () => {
         return true;
     }
@@ -37,7 +55,7 @@ export default function Document({
                     <h1 className="text-3xl font-semibold">
                         {service.name}
                     </h1>
-                    <p className="block text-sm text-gray-700 font-semibold">
+                    <p className="block text-sm font-semibold text-gray-700">
                         {service.description}
                     </p>
                 </div>
@@ -56,11 +74,11 @@ export default function Document({
                             ).map((field, index) => {
                                 return (
                                     <div key={index} className="flex flex-col gap-2">
-                                        <label className="text-primary-700 font-semibold text-sm">{field.name}</label>
+                                        <label className="text-sm font-semibold text-primary-700">{field.name}</label>
                                         
                                         <input type="file" 
                                             name={normalizeString(field.name)}
-                                            className="border border-gray-300 rounded-lg p-2"
+                                            className="p-2 border border-gray-300 rounded-lg"
                                         />
                                     </div>
                                 )
@@ -70,7 +88,7 @@ export default function Document({
                         {
                             service.fields.filter(
                                 (field) => field.type.typeName.toLowerCase() === 'file'
-                            ).length === 0 && <p className="text-center mt-10">
+                            ).length === 0 && <p className="mt-10 text-center">
                                 <p>Aucun document exigé !</p>
                                 <p className="text-[#7B7C7E]">
                                     Vous pouvez passer à la prochaine étape.
@@ -82,7 +100,7 @@ export default function Document({
                 </div>
             </ModalBody>
             <ModalFooter>
-                <div className="flex-1 gap-4 flex">
+                <div className="flex flex-1 gap-4">
                     <button onClick={previous} 
                         className={`bg-[#7B7C7E] text-white font-semibold px-4 py-2 rounded-lg`}>
                         Précédent
