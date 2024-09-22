@@ -1,72 +1,67 @@
 import { ModalHead, ModalBody, ModalFooter } from "../../../components/ModalComponents";
 
 
-
-export default function PayementMethod ({
+export default function PayementMethod({
     handleChange,
     previous,
 }: {
-    handleChange: (data: any) => void;
+    handleChange: (paymentMethod: string) => void; // Now expecting a string
     previous: () => void;
 }) {
-
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        const data: any = {};
+        const paymentMethod = e.target['paymentMethods'].value; // Directly getting the string value
+        handleChange(paymentMethod); // Passing only the string
+    };
 
-        data['paymentMethod'] = e.target['paymentMethod'].value;
-
-        handleChange(data);
-    }
-
-    return (<>
+    return (
         <form onSubmit={handleSubmit}>
             <ModalHead>
                 <div className="space-y-2">
-                    <h1 className="text-3xl font-semibold">
-                        Méthode de paiement
-                    </h1>
-                    <p className="block text-sm text-gray-700 font-semibold">
+                    <h1 className="text-3xl font-semibold">Méthode de paiement</h1>
+                    <p className="block text-sm font-semibold text-gray-700">
                         Choisissez votre méthode de paiement
                     </p>
                 </div>
             </ModalHead>
             <ModalBody>
-            <div className="space-y-4">
-                    <h3 className="text-xl font-semibold">
-                        Méthode de paiement
-                    </h3>
-
+                <div className="space-y-4">
+                    <h3 className="text-xl font-semibold">Méthode de paiement</h3>
                     <div className="space-y-2">
                         <div className="flex flex-col gap-2">
-                            <label className="text-primary-700 font-semibold text-sm">Méthode de paiement</label>
-                            
-                            <select 
-                                name="paymentMethod"
-                                className="border border-gray-300 rounded-lg p-2"
+                            <label className="text-sm font-semibold text-primary-700">
+                                Méthode de paiement
+                            </label>
+                            <select
+                                name="paymentMethods"
+                                className="p-2 border border-gray-300 rounded-lg"
                             >
-                                <option value="cash">Espèces</option>
-                                <option value="check">Chèque</option>
-                                <option value="transfer">Virement bancaire</option>
+                                <option value="wave">Wave</option>
+                                <option value="orange-money">Orange Money</option>
+                                <option value="carte">Carte</option>
                             </select>
                         </div>
                     </div>
-            </div>
+                </div>
             </ModalBody>
             <ModalFooter>
-            <div className="flex-1 gap-4 flex">
-                    <button onClick={previous} 
-                        className={`bg-[#7B7C7E] text-white font-semibold px-4 py-2 rounded-lg`}>
+                <div className="flex flex-1 gap-4">
+                    <button
+                        onClick={previous}
+                        className="bg-[#7B7C7E] text-white font-semibold px-4 py-2 rounded-lg"
+                    >
                         Précédent
                     </button>
                 </div>
-                <div className="flex items-center gap-4 ">
-                    <button 
-                        className={` text-white font-semibold px-4 py-2 rounded-lg bg-primary-700`}>
+                <div className="flex items-center gap-4">
+                    <button
+                        type="submit"
+                        className="px-4 py-2 font-semibold text-white rounded-lg bg-primary-700"
+                    >
                         Suivant
                     </button>
                 </div>
             </ModalFooter>
         </form>
-    </>)
+    );
 }
