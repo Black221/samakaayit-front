@@ -1,5 +1,5 @@
 export enum MaritalStatus {
-    SINGLE = 'Célibataire',
+    SINGLE = 'Celibataire',
     MARRIED = 'Marié(e)',
     DIVORCED = 'Divorcé(e)',
     WIDOWED = 'Veuf(ve)',
