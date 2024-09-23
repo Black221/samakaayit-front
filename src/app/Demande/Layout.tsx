@@ -5,9 +5,11 @@ import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useModal } from "../../hooks/useModal";
 import NouvelleDemande from "./nouvelle-demande/Modal";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function Layout () {
 
+    const queryClient = new QueryClient();
     const types = [
         {label: "En cours", value: "en-cours"},
         {label: "Terminees", value: "terminees"},
@@ -50,7 +52,7 @@ export default function Layout () {
                     <h2 className="text-[40px] font-semibold">Demandes</h2>
                     <p className="text-base text-[#7B7C7E]">
                         Vous avez 
-                        <span className="text-primary-700 font-bold mx-2"> 
+                        <span className="mx-2 font-bold text-primary-700"> 
                             { requestResponse?.data.length || 0 }
                         </span>
                         demandes en cours de traitement
@@ -59,9 +61,11 @@ export default function Layout () {
                 <div>
                     <button 
                         onClick={() => openModal(
-                            <NouvelleDemande/>
+                            <QueryClientProvider client={queryClient}>
+                                <NouvelleDemande />
+                            </QueryClientProvider>
                         )}
-                    className="bg-primary-700 text-white px-4 py-2 rounded-md">Nouvelle demande</button>
+                    className="px-4 py-2 text-white rounded-md bg-primary-700">Nouvelle demande</button>
                 </div>
             </div>
 

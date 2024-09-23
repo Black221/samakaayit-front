@@ -1,5 +1,4 @@
 export const validatePhoneNumber = (phoneNumber: string): string | null => {
-    return null;
     if (!phoneNumber) {
         return "Le numéro de téléphone est requis.";
     }
@@ -7,16 +6,19 @@ export const validatePhoneNumber = (phoneNumber: string): string | null => {
     if (!numberRegex.test(phoneNumber)) {
         return "Le numéro de téléphone doit être un numéro sénégalais valide.";
     }
+    return null;
 };
 
 export const validatePassword = (password: string): string | null => {
-    return null;
     if (!password) {
         return "Le mot de passe est requis.";
     }
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // Modifier le regex pour inclure au moins une lettre, un chiffre et un caractère spécial
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    
     if (!passwordRegex.test(password)) {
-        return "Le mot de passe doit comporter au moins 8 caractères, incluant au moins une lettre et un chiffre.";
+        return "Le mot de passe doit comporter au moins 8 caractères, incluant au moins une lettre, un chiffre et un caractère spécial.";
     }
+    return null;
 };
 

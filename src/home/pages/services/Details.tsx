@@ -59,15 +59,6 @@ export default function Details () {
     });
 
     /**
-     * getUrlDemand()
-     * retrrive last element of the url from link attribute
-     */
-    const getUrlDemand = (url: string) => {
-        const urlArray = url.split('/');
-        return urlArray[urlArray.length - 1]; 
-    }
-
-    /**
      * play an audio and stop it asked by user
      */
     const playAudio =(audioUrl : string) => {
@@ -139,7 +130,7 @@ export default function Details () {
 
                     <div className="flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
                         <Button label="Faire une demande" className="w-full px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out bg-green-600 rounded-full md:px-6 md:py-3 md:text-base md:w-auto hover:bg-green-600/80" 
-                        onClick={()=> navigate(`/services/${serviceId}/${getUrlDemand(service?.link || "")}`)}
+                        onClick={()=> navigate(`/app/demande`)}
                         />
                         <a href="#" className="text-base font-semibold underline md:text-lg text-neutral-900">Prendre rendez-vous</a>
                     </div>
