@@ -9,6 +9,8 @@ export default function Details () {
     const {
         id
     } = useParams();
+
+    const baseUrl = "https://gouvhackaton-1.onrender.com";
     
     const {
         fetchRequestById,
@@ -55,197 +57,52 @@ export default function Details () {
 
             <hr />
 
-            <div className="grid grid-cols-2 gap-10 w-fit">
+            <div className="flex flex-col gap-4">
 
-                <div className="col-span-2">
+                <div className="">
                     <h2 className="text-xl font-bold">
-                        Informations personnelles
+                        Réponse à la demande
                     </h2>
                 </div>
 
-                <div className="col-span-2">
+                <div className="">
                     <p className="font-semibold">
-                        CNI
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.CNI || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Nom
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.name || 'Non renseigné'}
-                    </p>
-                </div>
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Prénom
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.surname || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Date de naissance
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.birthday || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Sexe
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.sex || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Pays de naissance
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.birthCountry || 'Non renseigné'}
-                    </p>
-                </div>
-                
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Nationalité
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.nationality || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Adresse
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.address || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Situation matrimoniale
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.maritalStatus || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Profession
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.job || 'Non renseigné'}
-                    </p>
-                </div>
-
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Téléphone
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.phoneNumber || 'Non renseigné'}
-                    </p>
-                </div>  
-            </div>
-
-            <hr />
-            <div className="grid grid-cols-2 gap-10 w-fit">
-                <div className="col-span-2">
-                    <h2 className="text-xl font-bold">
-                        Informations Parentales
-                    </h2>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Nom du père
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.fathersName || 'Non renseigné'}
-                    </p>
-                </div>
-
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Nom de la mère
-                    </p>
-                    <p>
-                        {requestResponse.data?.citoyen.mothersName || 'Non renseigné'}
-                    </p>
-                </div>
-
-            </div>
-
-            <hr />
-
-            <div className="grid grid-cols-2 gap-10 w-fit">
-                    
-                <div className="col-span-2">
-                    <h2 className="text-xl font-bold">
-                        Informations de la demande
-                    </h2>
-                </div>
-    
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Statut
+                        Etat
                     </p>
                     <p>
                         {requestResponse.data?.state}
                     </p>
                 </div>
 
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Date de dépôt
-                    </p>
-                    <p>
-                        {requestResponse.data?.createdAt}
-                    </p>
-                </div>
-    
-                <div className="text-base">
-                    <p className="font-semibold">
-                        Liste des pièces
-                    </p>
-                    <ol className="list-decimal list-inside ml-2 mt-2">
-                        <li>
-                            Ancien certificat de naisance
-                            <p className="border rounded-2xl p-4 px-6 mt-1 text-sm w-fit">
-                                <span className="mr-6">Icon</span> Ouvrir le fichier
-                            </p>
-                        </li>
-                    </ol>
-                </div>
-            </div>
+                {requestResponse.data?.state === "terminé" && <>
+                
+                    <div className="">
+                        <p className="font-semibold">
+                            Commentaire
+                        </p>
+                        <p>
+                            {requestResponse.data?.commentByAgent}
+                        </p>
+                    </div>
+                    <div className="space-y-2">
+                        <p className="font-semibold">
+                            Documents
+                        </p>
+                        <div className="flex flex-col gap-4">
+                            {requestResponse.data?.documentResponses && 
+                            (requestResponse.data?.documentsByAgent.map((doc: any, index:number) => (
 
-            <hr />
-
-            <div className="text-base">
-                <div className="col-span-2">
-                    <h2 className="text-xl font-bold">
-                        Informations de paiement
-                    </h2>
-                </div>
-                <p className="border rounded-2xl p-4 px-6 mt-1 text-sm w-fit">
-                    <span className="mr-6">Icon</span> Payé par 
-                    {requestResponse.data?.paymentMethod || 'Non renseigné'}
-                </p>
+                                <div key={index} className="flex flex-row gap-4 bg-primary-100 rounded-md w-fit p-4 py-2">
+                                    <a 
+                                        href={baseUrl + "/documents/file/" + doc}
+                                        target="_blank" rel="noreferrer">
+                                        Télécharger
+                                    </a>
+                                </div>
+                            )))}
+                        </div>
+                    </div>
+                </>}
             </div>
         </div>
     </>)

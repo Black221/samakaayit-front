@@ -31,10 +31,10 @@ export default function List () {
                 loading ? (
                     <div>Chargement...</div>
                 ) : (
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-4 pr-4">
                         {
                             data?.map((doc: any) => (
-                                <div key={doc._id} className="min-w-72 p-4 bg-gray-100 rounded-md">
+                                <div key={doc._id} className="min-w-80 flex-1 p-4 bg-gray-100 rounded-md">
                                     <div className="text-xl">
                                         <div className="text-xs text-gray-500">Nom</div>
                                         <div>{doc.name}</div>
@@ -44,7 +44,7 @@ export default function List () {
                                         <div>{doc?.date}</div>
                                     </div>
                                     <div className="text-sm">
-                                        <button className="bg-blue-500 text-white px-4 py-1 rounded-md mt-2">
+                                        <button className="bg-primary-700 text-white px-4 py-1 rounded-md mt-2">
                                             Télécharger
                                         </button>
                                     </div>
