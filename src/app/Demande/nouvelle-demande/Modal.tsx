@@ -3,34 +3,22 @@ import { useModal } from "../../../hooks/useModal";
 import { IService, useService } from "../../../models/Service";
 import { Choix } from "./Choix";
 import Formulaire from "./Formulaire";
-import Document from "./Document";
+import DocumentList from "./DocumentList";
 import { useRequest } from "../../../models/Request";
 import { IInstitution } from "../../../models/Institution";
 import { useAuth } from "../../../hooks/useAuth";
 import PayementMethod from "./PaymentMethod";
 import Commentaire from "./Commentaire";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-
-interface DocumentData {
-  originalname: string;
-  mimetype: string;
-  size: number;
-  buffer: string;
-  name: string;
-  path: string;
-  date: string;
-  uploadedBy: string;
-}
 
 export default function NouvelleDemande() {
   const [step, setStep] = useState(0);
   const [selectedService, setSelectedService] = useState<IService | null>(null);
   const [selectedInstitution, setSelectedInstitution] = useState<IInstitution | null>(null);
-  const [formulaireData, setFormulaireData] = useState<any>();
-  const [paymentMethods, setPaymentMethod] = useState<string>();
-  const [commentByCitoyen, setCommentByCitoyen] = useState<any>();
-  const [documents, setDocuments] = useState<Record<string, File> | null>(null);
+  const [formulaireData, setFormulaireData] = useState<any>({});
+  const [paymentMethods, setPaymentMethods] = useState<string>("");
+  const [commentByCitoyen, setCommentByCitoyen] = useState<string>("");
+  const [documentResponses, setDocumentResponses] = useState<Record<string, string>>({});
 
   const { closeModal } = useModal();
   const { createRequest } = useRequest();
@@ -39,34 +27,13 @@ export default function NouvelleDemande() {
 
   useEffect(() => {
     fetchServices();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Mutation to upload a document
-  const documentUploadMutation = useMutation({
-    mutationFn: async (documentData: DocumentData) => {
-      const response = await axios.post(
-        "https://gouvhackaton-1.onrender.com/documents",
-        documentData
-      );
-      return response.data;
-    },
-    onSuccess: (data: any) => {
-      console.log("Document upload successful, ID:", data._id);
-    },
-    onError: (error: any) => {
-      console.error("Document upload error: ", error);
-      throw new Error("Document upload failed.");
-    },
-  });
-
-  // Mutation to create the request
   const createDemandeMutation = useMutation({
-    mutationFn: async (requestData: any) => {
-      return createRequest(requestData);
-    },
+    mutationFn: async (requestData: any) => createRequest(requestData),
     onSuccess: () => {
       alert("Demande envoyée avec succès!");
-      console.log("Request created successfully!");
       window.location.href = "/app/demande";
     },
     onError: (error: any) => {
@@ -75,9 +42,7 @@ export default function NouvelleDemande() {
     },
   });
 
-  const previous = () => {
-    setStep(step - 1);
-  };
+  const previous = () => setStep((prevStep) => prevStep - 1);
 
   const getChoice = (data: { service: IService | null; institution: IInstitution | null }) => {
     setSelectedService(data.service);
@@ -90,66 +55,39 @@ export default function NouvelleDemande() {
     setStep(2);
   };
 
-  const getDocument = (data: any) => {
-    setDocuments(data);
+  const getDocument = (data: Record<string, string>) => {
+    setDocumentResponses(data);
     setStep(3);
   };
 
   const getPayementMethod = (data: string) => {
-    setPaymentMethod(data); // data is now just the string of the selected payment method
+    setPaymentMethods(data);
     setStep(4);
   };
 
-  const getCommentaire = (data: any) => {
+  const getCommentaire = (data: string) => {
     setCommentByCitoyen(data);
     setStep(5);
-    sendDemande(); // Send the final request here after gathering all data.
+    sendDemande();
   };
 
-  // Sequential function to upload documents and then create the request
   const sendDemande = async () => {
-    if (!selectedService || !formulaireData || !documents) {
+    if (!selectedService || !formulaireData) {
       alert("Données manquantes pour la demande.");
       return;
     }
-
+    
     try {
-      // Step 1: Upload documents first
-      const documentResponses: Record<string, string> = {};
-
-      for (const [label, file] of Object.entries(documents)) {
-        const documentData: DocumentData = {
-          originalname: file.name,
-          mimetype: file.type,
-          size: file.size,
-          buffer: btoa(String.fromCharCode(...new Uint8Array(await file.arrayBuffer()))),
-          name: file.name,
-          path: `/documents/${file.name}`,
-          date: new Date().toISOString(),
-          uploadedBy: getUser()?._id || "",
-        };
-
-        const documentResponse = await documentUploadMutation.mutateAsync(documentData);
-
-        if (documentResponse._id) {
-          documentResponses[label] = documentResponse._id; // Collect the document ID for request creation
-        } else {
-          throw new Error("Document upload failed.");
-        }
-      }
-
-      // Step 2: Create the request after successful document uploads
       const requestData = {
         citoyen: getUser()?._id,
-        service: selectedService?._id,
+        service: selectedService._id,
         institution: selectedInstitution?._id,
         textResponses: formulaireData,
         documentResponses,
-        paymentMethods : paymentMethods,
+        paymentMethods,
         commentByCitoyen,
       };
 
-      console.log("Final Request Data: ", requestData);
       await createDemandeMutation.mutateAsync(requestData);
     } catch (error) {
       console.error("Error during demande process: ", error);
@@ -175,7 +113,13 @@ export default function NouvelleDemande() {
         />
       )}
       {step === 2 && selectedService && (
-        <Document service={selectedService} handleChange={getDocument} previous={previous} />
+        <DocumentList
+          service={selectedService}
+          handleChange={getDocument}
+          previous={previous}
+          
+          
+        />
       )}
       {step === 3 && (
         <PayementMethod handleChange={getPayementMethod} previous={previous} />
