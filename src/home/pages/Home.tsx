@@ -5,8 +5,11 @@ import { FaLaptopFile } from "react-icons/fa6";
 import { GoSearch } from "react-icons/go";
 import { FaArrowRight } from "react-icons/fa";
 import Input from "../../components/Input";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const navigate = useNavigate()
+    
     return (
         <>
             <section className="mt-[150px] relative px-4 lg:px-[100px]">
@@ -14,7 +17,7 @@ export default function Home() {
                     <div className="flex flex-col w-full lg:w-1/2 md:w-3/4 gap-10 md:gap-5">
                         <h2 className="font-bold text-[32px] lg:text-[50px]">Simplifiez vos démarches administratives</h2>
                         <p className="text-gray-500 text-[15px] lg:text-xl md:text-[16px]">Grâce à SAMAKAAYIT vous pouvez désormais effectuer toutes vos démarches administratives depuis chez vous ou depuis votre smartphone. Demandes de passeport, de carte d'identité, d'acte de naissance, paiement de taxes... toutes vos formalités sont simplifiées et accessibles 24h/24 et 7j/7. </p>
-                        <Button label="Faire une demande" className="text-black bg-yellow-400 rounded-full w-60 font-bold md:w-56 lg:h-16 md:h-12" />
+                        <Button label="Faire une demande" onClick={() => navigate('/app/demande')} className="text-black bg-yellow-400 rounded-full w-60 font-bold md:w-56 lg:h-16 md:h-12" />
                     </div>
                     {/* Image */}
                     <div className="w-full lg:w-[430px] md:w-1/3 mt-10 lg:mt-0 flex justify-center items-center">
@@ -58,7 +61,7 @@ export default function Home() {
                         <GoSearch size={30} color="gray" />
                     </div>
                     <div>
-                        <a href="#" className="underline flex justify-center items-center gap-2 cursor-pointer  ">
+                        <a href="/services" className="underline flex justify-center items-center gap-2 cursor-pointer  ">
                             Afficher tous les services
                             <FaArrowRight />
                         </a>
