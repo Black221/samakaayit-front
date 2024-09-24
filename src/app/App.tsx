@@ -4,7 +4,6 @@ import Layout from "./Layout"
 
 import { useMainState } from "../hooks/useMainState";
 import { useEffect } from "react";
-import { useCitoyen } from "../models/Citoyen";
 
 import Dashboard from "./Dashboard";
 import RendezVous from "./Rendez-vous/Page";
@@ -12,7 +11,6 @@ import Demande from "./Demande/Page";
 import Notification from "./Notification/Page";
 import Document from "./Document/Page";
 import Parametre from "./Parametre/Page";
-import { useAuth } from "../hooks/useAuth";
 
 
 function App() {
@@ -23,25 +21,6 @@ function App() {
         setLargeScreen,
     } = useMainState();
 
-    const {
-        login
-    } = useAuth();
-
-    const {
-        fetchCitizenByPhone,
-        response,
-    } = useCitoyen();
-
-    useEffect(() => {
-        fetchCitizenByPhone(encodeURIComponent("+221771234567"));
-        return () => {};
-    }, []);
-
-    useEffect(() => {
-        if (response) {
-            login(response.data);
-        }
-    }, [response]);
 
 
 	useEffect(() => {

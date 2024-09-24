@@ -1,11 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { IRequest, useRequest } from '../../models/Request';
 import { useAuth } from '../../hooks/useAuth';
 import { useEffect } from 'react';
 
 export default function List () {
 
+    const location = useLocation();
+    const getActive = ():string => {
+
+        return location.search.includes('en-cours')
+        ? 'en-cours' : location.search.includes('terminees') 
+        ? 'terminees' : location.search.includes('annulees') 
+        ? 'annulees' : 'en-cours';
+    }
     const {
         fetchRequestsByCitizen,
         requestResponse,
@@ -45,7 +53,9 @@ export default function List () {
         
         <div>
             {
-                demandeToRender.map((demande, index) => {
+                demandeToRender
+                .filter(demande => demande.state === getActive())
+                .map((demande, index) => {
                     return (
                         <NavLink to={
                             {

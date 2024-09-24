@@ -6,6 +6,9 @@ import rendezVousSvg from '../assets/svg/RV_V.svg';
 import parametresSvg from '../assets/svg/Param.svg';
 
 import logo from '../assets/svg/logo.svg';
+import { useAuthService } from '../auth/authService';
+import { useModal } from '../hooks/useModal';
+import { ModalBody, ModalFooter, ModalHead } from './ModalComponents';
 
 
 
@@ -55,6 +58,23 @@ export default function AppSidebar () {
         return location.pathname.includes(route);
     }
 
+    const {
+        logout
+    } = useAuthService();
+
+    const {
+        openModal,
+    } = useModal();
+
+    const logoutUser = () => {
+        openModal(
+            <LogoutModal 
+                logout={logout}
+                close={() => openModal(null)}
+                loading={false}
+            />
+        );
+    }
 
     return (<>
         <div className="flex flex-col h-full justify-start w-64 bg-white border-r border-r-[#8585852B]">
@@ -89,9 +109,59 @@ export default function AppSidebar () {
             <div className="flex flex-col justify-end min-h-[200px]">
                 <div className="flex items-center justify-start gap-4 p-4">
                     <div className="w-8 h-8 rounded-full"></div>
-                    <a href="/app/logout" className="text-[#858585]">Déconnexion</a>
+                    <button onClick={logoutUser} className="bg-primary-700 text-white px-4 py-1 rounded-md">
+                        Se déconnecter
+                    </button>
                 </div>
             </div>
         </div>
+    </>)
+}
+
+
+const LogoutModal = ({
+    logout,
+    close,
+    loading
+} : {
+    logout: () => void,
+    close: () => void,
+    loading: boolean
+}) => {
+    return (<>
+        <ModalHead>
+            <h1 className="text-xl font-bold">
+                Se déconnecter
+            </h1>
+        </ModalHead>
+        <ModalBody>
+            {loading 
+                ? <div className="flex items-center justify-center">
+                    <p>
+                        Déconnexion en cours...
+                    </p>
+                </div> 
+                : <div className="space-y-4">
+                    <p>
+                        Voulez-vous vraiment vous déconnecter ?
+                    </p>
+                    
+                </div>
+            }
+        </ModalBody>
+        <ModalFooter>
+            {!loading && <div className="flex justify-end gap-4">
+                <button className="bg-primary-700 text-white px-4 py-1 rounded-md"
+                    onClick={logout}
+                >
+                    Oui
+                </button>
+                <button className="bg-gray-200 text-gray-800 px-4 py-1 rounded-md"
+                    onClick={close}
+                >
+                    Non
+                </button>
+            </div>}
+        </ModalFooter>
     </>)
 }
