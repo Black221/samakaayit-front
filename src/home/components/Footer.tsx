@@ -1,10 +1,12 @@
 import { GrFacebookOption } from "react-icons/gr";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 
 export default function Footer() {
+    const navigate = useNavigate()
+
     return (
         <footer className="px-4 lg:px-[100px] md:px-[100px] h-auto flex flex-col justify-center mb-6 relative overflow-hidden">
             <section className="mb-20 lg:mt-10">
@@ -12,7 +14,7 @@ export default function Footer() {
                 <div className="flex flex-col items-center justify-center space-y-8">
                     <h2 className="text-3xl font-bold text-center lg:text-5xl mt-36">Besoin d'aide</h2>
                     <p className="max-w-md text-center text-gray-500 lg:max-w-2xl">Si vous avez besoin d'une aide quelconque, répondez à notre FAQ et faites nous en part.</p>
-                    <Button label="Consulter à la FAQ" className="w-full h-16 text-black bg-yellow-400 rounded-full lg:w-80" />
+                    <Button label="Consulter à la FAQ" onClick={() => navigate('/aide')}  className="w-full h-16 text-black bg-yellow-400 rounded-full lg:w-80" />
                 </div>
             </section>
             <hr className="w-full mb-6 border border-black" />
