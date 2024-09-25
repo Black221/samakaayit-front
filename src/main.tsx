@@ -12,11 +12,11 @@ import { ModalProvider } from './providers/ModalProvider'
 import Home from "./home/Page";
 import AuthGuard from './guards/AuthGuard'
 import IsAuth from './guards/isAuth'
-import SmsVerification from './auth/Register/smsVerification'
-import ChooseAlternateMethod from './auth/Register/ChooseAlternateMethod'
-import EnterEmail from './auth/Register/EnterEmail'
-import EmailVerification from './auth/Register/EmailVerification'
-import VerificationResult from './auth/Register/VerificationResult'
+import SmsVerification from './auth/Register/_/smsVerification'
+import ChooseAlternateMethod from './auth/Register/_/ChooseAlternateMethod'
+import EnterEmail from './auth/Register/_/EnterEmail'
+import EmailVerification from './auth/Register/_/EmailVerification'
+import VerificationResult from './auth/Register/_/VerificationResult'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>

@@ -1,28 +1,11 @@
 import useAxios from "../hooks/useAxios";
 import serverInstance from "../api/server";
+import { ICitoyen } from "../models/Citoyen";
 
 export const useRegisterService = () => {
     const { client, response, loading, error } = useAxios(serverInstance);
 
-    const register = async (registrationData: {
-        CNI: string,
-        phoneNumber: string,
-        name: string,
-        surname: string,
-        birthDate: string,
-        job: string,
-        sex: string,
-        password: string,
-        confirmPassword: string,
-        fathersName: string,
-        fathersSurname: string,
-        mothersName: string,
-        mothersSurname: string,
-        maritalStatus: string,
-        address: string,
-        birthCountry: string,
-        birthDepartment: string
-    }) => {
+    const register = async (registrationData: Partial<ICitoyen>) => {
         return await client.post("/citoyens/auth/signup", registrationData, {}, { retryConfig: { retries: 3, delay: 5000 } });
     };
 
