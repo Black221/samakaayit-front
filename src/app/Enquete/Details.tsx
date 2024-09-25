@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Startpoint from "./components/Startpoint";
+import Step2 from "./components/Step2";
 
 function Details() {
   const [step, setStep] = useState(0);
@@ -14,8 +15,8 @@ function Details() {
         switch (step) {
           case 0:
             return <Startpoint onNext={handleNext} />;
-          // case 1:
-          //   return <Step2 onNext={handleNext} />;
+          case 1:
+            return <Step2 onNext={handleNext} />;
           // case 2:
           //   return <Step3 onNext={handleNext} />;
           // case 3:
