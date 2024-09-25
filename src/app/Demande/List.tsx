@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { IRequest, useRequest } from '../../models/Request';
 import { useAuth } from '../../hooks/useAuth';
 import { useEffect } from 'react';
+import { normalizeString } from '../../utils/global';
 
 export default function List () {
 
@@ -11,8 +12,8 @@ export default function List () {
 
         return location.search.includes('en-cours')
         ? 'en-cours' : location.search.includes('terminees') 
-        ? 'terminees' : location.search.includes('annulees') 
-        ? 'annulees' : 'en-cours';
+        ? 'termine' : location.search.includes('annulees') 
+        ? 'rejete' : 'en-cours';
     }
     const {
         fetchRequestsByCitizen,
@@ -54,7 +55,7 @@ export default function List () {
         <div>
             {
                 demandeToRender
-                .filter(demande => demande.state === getActive())
+                .filter(demande => normalizeString(demande?.state as string) === getActive())
                 .map((demande, index) => {
                     return (
                         <NavLink to={

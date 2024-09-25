@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import dashboardSvg from '../assets/svg/Dashboard_V.svg';
 import demandeSvg from '../assets/svg/Demande_V.svg';
 import notificationSvg from '../assets/svg/Message_V.svg';
@@ -50,6 +50,7 @@ export default function AppSidebar () {
 
 
     const location = useLocation();
+    const navigate  = useNavigate();
 
     const isActive = (route: string) => {
         if (route === '/app' && location.pathname !== '/app') {
@@ -59,18 +60,25 @@ export default function AppSidebar () {
     }
 
     const {
-        logout
+        logout,
     } = useAuthService();
 
     const {
         openModal,
+        closeModal
     } = useModal();
+
+    const logoutt = () =>  {
+        logout();
+        closeModal();
+        navigate('/');
+    }
 
     const logoutUser = () => {
         openModal(
             <LogoutModal 
-                logout={logout}
-                close={() => openModal(null)}
+                logout={logoutt}
+                close={closeModal}
                 loading={false}
             />
         );
@@ -152,7 +160,9 @@ const LogoutModal = ({
         <ModalFooter>
             {!loading && <div className="flex justify-end gap-4">
                 <button className="bg-primary-700 text-white px-4 py-1 rounded-md"
-                    onClick={logout}
+                    onClick={() => {
+                        logout();
+                    }}
                 >
                     Oui
                 </button>
