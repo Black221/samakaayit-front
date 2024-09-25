@@ -51,30 +51,30 @@ export default function Formulaire({
                     <div className="mt-4 space-y-4">
                         {service?.fields?.map((field, index) => (
                             <div key={index} className="space-y-2">
-                                {field.type.typeName.toLowerCase() !== "file" && (
+                                {field.type?.typeName?.toLowerCase() !== "file" && (
                                     <label className="font-semibold text-gray-700">
                                         {field.name}
                                     </label>
                                 )}
-                                {(field.type.typeName.toLowerCase() === 'text' ||
-                                    field.type.typeName.toLowerCase() === 'number' ||
-                                    field.type.typeName.toLowerCase() === 'email' ||
-                                    field.type.typeName.toLowerCase() === 'password' ||
-                                    field.type.typeName.toLowerCase() === 'tel' ||
-                                    field.type.typeName.toLowerCase() === 'date') && (
+                                {(field.type?.typeName?.toLowerCase() === 'text' ||
+                                    field.type?.typeName?.toLowerCase() === 'number' ||
+                                    field.type?.typeName?.toLowerCase() === 'email' ||
+                                    field.type?.typeName?.toLowerCase() === 'password' ||
+                                    field.type?.typeName?.toLowerCase() === 'tel' ||
+                                    field.type?.typeName?.toLowerCase() === 'date') && (
                                     <input
-                                        type={field.type.typeName.toLowerCase()}
+                                        type={field.type?.typeName?.toLowerCase()}
                                         name={field.name}
                                         className="block w-full py-2 pl-3 pr-10 mt-1 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                     />
                                 )}
-                                {field.type.typeName.toLowerCase() === 'textarea' && (
+                                {field.type?.typeName?.toLowerCase() === 'textarea' && (
                                     <textarea
                                         name={field.name}
                                         className="block w-full py-2 pl-3 pr-10 mt-1 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                     />
                                 )}
-                                {field.type.typeName.toLowerCase() === 'select' && (
+                                {field.type?.typeName?.toLowerCase() === 'select' && (
                                     <select
                                         name={field.name}
                                         className="block w-full py-2 pl-3 pr-10 mt-1 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
@@ -87,7 +87,7 @@ export default function Formulaire({
                                         ))}
                                     </select>
                                 )}
-                                {field.type.typeName.toLowerCase() === 'radio' && (
+                                {field.type?.typeName?.toLowerCase() === 'radio' && (
                                     <div className="flex items-center gap-4">
                                         {field.type.options.map((option, index) => (
                                             <div key={index} className="flex items-center gap-2">

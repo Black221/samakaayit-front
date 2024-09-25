@@ -47,6 +47,7 @@ export default function NouvelleDemande() {
   const getChoice = (data: { service: IService | null; institution: IInstitution | null }) => {
     setSelectedService(data.service);
     setSelectedInstitution(data.institution);
+    console.log(data);
     setStep(1);
   };
 
