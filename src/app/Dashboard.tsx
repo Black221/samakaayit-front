@@ -1,4 +1,4 @@
-import img from '../assets/5841882_2968305 1.png';
+import img from '../assets/monimage.png';
 import { IRequest, useRequest } from '../models/Request';
 import { useAuth } from '../hooks/useAuth';
 import { useCallback, useEffect } from 'react';
@@ -113,7 +113,7 @@ export default function Dashboard () {
                         <img src={img} alt="" />
                     </div>
                     <div className="w-full p-3 font-bold text-center rounded-tr-full rounded-bl-full bg-tertiary-400">
-                       <a href="app/enquete">Enquête de satisfaction</a>
+                       <a href="/app/enquete">Enquête de satisfaction</a>
                     </div>
                     <div className="py-4 space-y-2">
                         <h3 className="text-[18px] font-semibold">Votre avis intéresse</h3>
