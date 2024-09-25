@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useRegisterService } from "../registerService";
 import ConnexionForm from "./ConnexionForm";
 import CitoyenForm from "./CitoyenForm";
@@ -9,7 +8,6 @@ import { ICitoyen } from "../../models/Citoyen";
 
 export default function Register() {
    
-    const navigate = useNavigate();
 
     const { register, data, loading, error } = useRegisterService();
 
@@ -21,14 +19,6 @@ export default function Register() {
         await register(data);
     };
 
-
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            navigate('/connexion');
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
 
     const [step, setStep] = useState(1);
 
@@ -51,7 +41,6 @@ export default function Register() {
     }
 
    
-
 
 
     return (
@@ -91,6 +80,7 @@ export default function Register() {
                         </div>
                     </>)}
                 </>)}
+
 
                 {
                     errors.message && <p className="text-red-500 text-sm">{errors.message}</p>

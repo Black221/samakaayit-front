@@ -44,9 +44,11 @@ export default function List () {
                                         <div>{doc?.date}</div>
                                     </div>
                                     <div className="text-sm">
-                                        <button className="bg-primary-700 text-white px-4 py-1 rounded-md mt-2">
+                                        <a href={
+                                            `https://gouvhackaton-1.onrender.com/documents/file/${doc._id}`
+                                        }  className="bg-primary-700 text-white px-4 py-1 rounded-md  block w-fit mt-2">
                                             Télécharger
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             ))

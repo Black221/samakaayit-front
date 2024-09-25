@@ -36,12 +36,19 @@ export default function Details () {
         return <div>Erreur</div>
     }
 
+    const info: {
+        [key: string]: string;
+    } = requestResponse.data?.textResponses;
+
+    const doc: {
+        [key: string]: string;
+    } = requestResponse.data?.documentResponses;
 
     return (<>
 
         <div className="pt-4" />
         <hr className="border-t border-primary-600" />
-        <div className="space-y-10 pt-4">
+        <div className="space-y-10 pt-4 ">
 
             <div className="space-y-2">
                 <h1 className="text-xl font-bold">
@@ -53,6 +60,75 @@ export default function Details () {
                 <p className="text-base text-gray-500">
                     {requestResponse.data?.service.description}
                 </p>
+            </div>
+
+            <hr />
+
+            <div className="flex flex-col gap-6">
+                <div className="">
+                    <h2 className="text-xl font-bold">
+                        Résumé de la demande
+                    </h2>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <div className=" flex gap-2">
+                        <p className="text text-xs">
+                            Date de la demande :
+                        </p>
+                        <p className="text-xs text-white bg-primary-700 px-2 py-1 rounded-full">
+                            {requestResponse.data?.date}
+                        </p>
+                    </div>
+
+                    <div className=" flex gap-2 items-center">
+                        <p className="text text-xs">
+                            Etat :
+                        </p>
+                        <p className="text-xs text-white bg-primary-700 px-2 py-1 rounded-full">
+                            {requestResponse.data?.state}
+                        </p>
+                    </div>
+                </div>
+
+                <div className="">
+                    <h2 className="text-lg font-bold">
+                        Informations fournies
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {info && Object.keys(info).map((key, index) => (
+                        <div key={index} className="flex flex-col gap-2">
+                            <p className="text-sm font-semibold">
+                                {key}
+                            </p>
+                            <p className="text-sm ">
+                            <span className="text-gray-500 p-4 w-72 border rounded-full block">
+                                    {info[key]}
+                            </span>
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="">
+                    <h2 className="text-lg font-bold">
+                        Documents fournis
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {doc && Object.keys(doc).map((key, index) => (
+                            <div key={index} className="flex flex-row gap-4 bg-primary-700 text-white rounded-md w-fit p-4 py-2 mt-2">
+                                <a 
+                                    href={baseUrl + "/documents/file/" + doc[key]}
+                                    target="_blank" rel="noreferrer">
+                                    {key}
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             <hr />
