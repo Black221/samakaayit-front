@@ -11,6 +11,7 @@ import Demande from "./Demande/Page";
 import Notification from "./Notification/Page";
 import Document from "./Document/Page";
 import Parametre from "./Parametre/Page";
+import Enquete from "./Enquete/Page";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/document/*" element={<Document />} />
                 <Route path="/notification/*" element={<Notification />} />
                 <Route path="/parametres/*" element={<Parametre />} />
+                <Route path="/enquete/*" element={< Enquete/>} />
 			</Route>
 		</Routes>
 	</>)
