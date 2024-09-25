@@ -1,4 +1,4 @@
-import img from '../assets/5841882_2968305 1.png';
+import img from '../assets/monimage.png';
 import { IRequest, useRequest } from '../models/Request';
 import { useAuth } from '../hooks/useAuth';
 import { useCallback, useEffect } from 'react';
@@ -35,26 +35,26 @@ export default function Dashboard () {
 
 
     return (
-        <div className="bg-white flex h-full w-full gap-4 p-1">
-            <div className="flex-1 h-full flex flex-col gap-4">
+        <div className="flex w-full h-full gap-4 p-1 bg-white">
+            <div className="flex flex-col flex-1 h-full gap-4">
                 <div className="flex gap-4">
-                    <div className="flex w-1/2 bg-white gap-4 p-4 rounded-lg shadow drop-shadow">
-                        <div className="bg-primary-50 p-4 rounded-2xl gap-1 flex flex-col">
+                    <div className="flex w-1/2 gap-4 p-4 bg-white rounded-lg shadow drop-shadow">
+                        <div className="flex flex-col gap-1 p-4 bg-primary-50 rounded-2xl">
                             <div></div>
                             <p className="text-[24px] font-semibold">
                                 { requestResponse && requestResponse.data.length || 0 }
                             </p>
-                            <p className="font-semibold text-base">Total de demandes</p>
+                            <p className="text-base font-semibold">Total de demandes</p>
                         </div>
-                        <div className="bg-tertiary-100 p-4 rounded-2xl gap-1 flex flex-col">
+                        <div className="flex flex-col gap-1 p-4 bg-tertiary-100 rounded-2xl">
                             <div></div>
                             <p className="text-[24px] font-semibold">
                                 { rendezvousResponse && rendezvousResponse.data.length || 0 }   
                             </p>
-                            <p className="font-semibold text-base">Total de rendez-vous</p>
+                            <p className="text-base font-semibold">Total de rendez-vous</p>
                         </div>
                     </div>
-                    <div className="w-1/2 bg-white p-4 rounded-lg shadow drop-shadow text-sm">
+                    <div className="w-1/2 p-4 text-sm bg-white rounded-lg shadow drop-shadow">
                         <div className="flex justify-between mb-2">
                             <h2 className="text-[18px] text-[#818181]">Historique</h2>
                             <button></button>
@@ -78,7 +78,7 @@ export default function Dashboard () {
                         
                     </div>
                 </div>
-                <div className="flex-1 bg-white p-4 rounded-lg shadow drop-shadow">
+                <div className="flex-1 p-4 bg-white rounded-lg shadow drop-shadow">
                     <div className="flex justify-between mb-2">
                         <h2 className="text-[18px] text-[#818181]">Rendez-vous</h2>
                         <button></button>
@@ -107,13 +107,13 @@ export default function Dashboard () {
             </div>
 
 
-            <div className="flex flex-col gap-4  w-80">
-                <div className="bg-white p-4 rounded-lg shadow drop-shadow">
+            <div className="flex flex-col gap-4 w-80">
+                <div className="p-4 bg-white rounded-lg shadow drop-shadow">
                     <div>
                         <img src={img} alt="" />
                     </div>
-                    <div className="bg-tertiary-400 w-full rounded-bl-full rounded-tr-full p-3 text-center font-bold">
-                        Enquête de satisfaction
+                    <div className="w-full p-3 font-bold text-center rounded-tr-full rounded-bl-full bg-tertiary-400">
+                       <a href="/app/enquete">Enquête de satisfaction</a>
                     </div>
                     <div className="py-4 space-y-2">
                         <h3 className="text-[18px] font-semibold">Votre avis intéresse</h3>
@@ -123,7 +123,7 @@ export default function Dashboard () {
                         </p>
                     </div>
                 </div>
-                <div className="flex-1 bg-white p-4 rounded-lg shadow drop-shadow">
+                <div className="flex-1 p-4 bg-white rounded-lg shadow drop-shadow">
                     <div className="flex justify-between mb-4">
                         <h2 className="text-[18px] text-[#818181]">Notifications</h2>
                         <button></button>
