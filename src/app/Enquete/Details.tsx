@@ -4,6 +4,7 @@ import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
 import Step5 from "./components/Step5";
+import Endtpoint from "./components/Endpoint";
 
 function Details() {
   const [step, setStep] = useState(0);
@@ -26,8 +27,10 @@ function Details() {
             return <Step4 onNext={handleNext} />;
           case 4:
             return <Step5 onNext={handleNext} />;
-          // case 5:
-          //   return <Endpoint />;
+          case 5:
+            return <Step5 onNext={handleNext} />;
+          case 6:
+            return <Endtpoint />;
           default:
             return null;
         }
