@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Startpoint from "./components/Startpoint";
 import Step2 from "./components/Step2";
+import Step3 from "./components/Step3";
+import Step4 from "./components/Step4";
+import Step5 from "./components/Step5";
 
 function Details() {
   const [step, setStep] = useState(0);
@@ -17,12 +20,12 @@ function Details() {
             return <Startpoint onNext={handleNext} />;
           case 1:
             return <Step2 onNext={handleNext} />;
-          // case 2:
-          //   return <Step3 onNext={handleNext} />;
-          // case 3:
-          //   return <Step4 onNext={handleNext} />;
-          // case 4:
-          //   return <Step5 onNext={handleNext} />;
+          case 2:
+            return <Step3 onNext={handleNext} />;
+          case 3:
+            return <Step4 onNext={handleNext} />;
+          case 4:
+            return <Step5 onNext={handleNext} />;
           // case 5:
           //   return <Endpoint />;
           default:
