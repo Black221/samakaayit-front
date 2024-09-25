@@ -55,7 +55,7 @@ export default function List () {
         <div>
             {
                 demandeToRender
-                .filter(demande => normalizeString(demande?.state as string) === getActive())
+                .filter(demande => normalizeString(demande?.state as string) === normalizeString(getActive()))
                 .map((demande, index) => {
                     return (
                         <NavLink to={
