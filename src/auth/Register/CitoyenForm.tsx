@@ -73,7 +73,8 @@ export default function CitoyenForm ({
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
-            getCitoyenInfo(formData);
+            const data:Partial<ICitoyen> = formData;
+            getCitoyenInfo(data);
         }
     }
 

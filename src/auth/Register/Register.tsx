@@ -25,11 +25,15 @@ export default function Register() {
     
     const getInfoConnexion = (info: {phoneNumber: string, password: string}) => {
         setStep(3);
-        if (citoyen)
-            handleSubmit({
+        if (citoyen) {
+
+            const data = {
                 ...citoyen,
-                ...info
-            });
+                ...info,
+            }
+            data.CNI = info.phoneNumber?.replace("+", "");
+            handleSubmit(data);
+        }
         else {
             setErrors({message: "Erreur lors de l'inscription, des informations sont manquantes"});
         }

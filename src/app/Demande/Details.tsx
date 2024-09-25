@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRequest } from "../../models/Request"
 import { useParams } from 'react-router-dom';
+import { normalizeString } from "../../utils/global";
 
 
 export default function Details () {
@@ -77,7 +78,7 @@ export default function Details () {
                             Date de la demande :
                         </p>
                         <p className="text-xs text-white bg-primary-700 px-2 py-1 rounded-full">
-                            {requestResponse.data?.date}
+                            {requestResponse.data?.createdAt}
                         </p>
                     </div>
 
@@ -150,7 +151,7 @@ export default function Details () {
                     </p>
                 </div>
 
-                {requestResponse.data?.state === "terminé" && <>
+                {normalizeString(requestResponse.data?.state) === normalizeString("terminé") && <>
                 
                     <div className="">
                         <p className="font-semibold">
@@ -168,7 +169,7 @@ export default function Details () {
                             {requestResponse.data?.documentResponses && 
                             (requestResponse.data?.documentsByAgent.map((doc: any, index:number) => (
 
-                                <div key={index} className="flex flex-row gap-4 bg-primary-100 rounded-md w-fit p-4 py-2">
+                                <div key={index} className="flex flex-row gap-4 bg-primary-700 text-white rounded-md w-fit p-4 py-2">
                                     <a 
                                         href={baseUrl + "/documents/file/" + doc}
                                         target="_blank" rel="noreferrer">

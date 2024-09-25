@@ -6,9 +6,9 @@ import rendezVousSvg from '../assets/svg/RV_V.svg';
 import parametresSvg from '../assets/svg/Param.svg';
 
 import logo from '../assets/svg/logo.svg';
-import { useAuthService } from '../auth/authService';
 import { useModal } from '../hooks/useModal';
 import { ModalBody, ModalFooter, ModalHead } from './ModalComponents';
+import { useAuth } from '../hooks/useAuth';
 
 
 
@@ -60,8 +60,8 @@ export default function AppSidebar () {
     }
 
     const {
-        logout,
-    } = useAuthService();
+        logout: logoutForcer
+    } = useAuth();
 
     const {
         openModal,
@@ -69,8 +69,7 @@ export default function AppSidebar () {
     } = useModal();
 
     const logoutt = () =>  {
-        logout();
-        closeModal();
+        logoutForcer();
         navigate('/');
     }
 

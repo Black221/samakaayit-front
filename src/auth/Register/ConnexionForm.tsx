@@ -61,6 +61,8 @@ export default function ConnexionForm ({
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
+            if (!formData.phoneNumber.includes("+221"))
+                formData.phoneNumber = "+221" + formData.phoneNumber;
             getInfoConnexion({phoneNumber: formData.phoneNumber, password: formData.password});
         }
     }
